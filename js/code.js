@@ -52,6 +52,12 @@ function doLogin()
 
 }
 
+function doSignup()
+{
+	// TODO - will add new user to the database and sign them into their new account (so that they don't login after signing up)
+	document.getElementById("signupResult").innerHTML = "button click! :)";
+}
+
 function saveCookie()
 {
 	var minutes = 20;

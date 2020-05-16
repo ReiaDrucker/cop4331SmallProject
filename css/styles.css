@@ -1,6 +1,6 @@
 body 
 {
-    background-color: #707070;
+	background-color:#353535
 }
 
 #title 
@@ -16,10 +16,23 @@ body
 #loginDiv
 {
     font-size: 30px;
-    width: 70%;
-    margin-left: 15%;
+    width: 41.3%;
+    margin-left: 12%;
     padding: 25px;
-    background-color: #b2b2b2;
+    background-color: #1A1A1A;
+	float: left;
+	border-radius: 7px;
+}
+
+#signupDiv
+{
+	font-size: 30px;
+	width: 30%;
+	margin-right: 12%;
+	padding: 25px;
+	background-color: #1A1A1A;
+	float: right;
+	border-radius: 7px;
 }
 
 #loggedInDiv
@@ -62,6 +75,28 @@ body
 #loginPassword
 {
 	font-size: 30px;
+	margin-bottom: 40px;
+}
+#signupName
+{
+	margin-top: 7px;
+	font-size: 20px;
+}
+#signupUserName
+{
+	margin-top: 7px;
+	font-size: 20px;
+}
+#signupPassword
+{
+	margin-top: 7px;
+	font-size: 20px;
+}
+#signupPasswordConfirm
+{
+	margin-top: 7px;
+	margin-bottom: 40px;
+	font-size: 20px;
 }
 #searchText
 {
@@ -73,15 +108,27 @@ body
 }
 
 input[type="text"],input[type="password"]{
-    border-radius: 25px;
+    border-radius: 15px;
     text-align: center;
     width: 80%;
     margin-left: 10%;
     margin-bottom: 2%;
+	background-color: rgba(255,255,255,0.64);
     font-family: 'Ubuntu', sans-serif;
 }
 
-#inner-title{
+span.inner-title{
+    display: inline-block;
+    font-size: 1em;
+    width: 90%;
+    text-align: center;
+    margin-left: 5%;
+    margin-bottom: 2%;
+    font-family: 'Ubuntu', sans-serif;
+    color: #F5F5F5;
+}
+
+#loginResult{
     display: inline-block;
     font-size: 0.8em;
     width: 90%;
@@ -92,7 +139,7 @@ input[type="text"],input[type="password"]{
     color: #95060a;
 }
 
-#loginResult{
+#signupResult{
     display: inline-block;
     font-size: 0.8em;
     width: 90%;
