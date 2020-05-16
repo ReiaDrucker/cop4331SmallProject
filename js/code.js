@@ -66,7 +66,7 @@ function changeStyle()
 
 function replace(hide, show)
 {
-	// TODO - will hide / show the register and login panels
+	// hides / shows a set of divs
 	document.getElementById(hide).style.display="none";
 	document.getElementById(show).style.display="block";
 }
