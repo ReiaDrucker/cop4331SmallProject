@@ -52,6 +52,25 @@ function doLogin()
 
 }
 
+function doSignup()
+{
+	// TODO - will add new user to the database and sign them into their new account (so that they don't login after signing up)
+	document.getElementById("signupResult").innerHTML = "Register - button click!"; // DEBUG
+}
+
+function changeStyle()
+{
+	// TODO - will change from light to dark mode
+	document.getElementById("signupResult").innerHTML = "Light / Dark Mode - button click!"; // DEBUG
+}
+
+function replace(hide, show)
+{
+	// hides / shows a set of divs
+	document.getElementById(hide).style.display="none";
+	document.getElementById(show).style.display="block";
+}
+
 function saveCookie()
 {
 	var minutes = 20;

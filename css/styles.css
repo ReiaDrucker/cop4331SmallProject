@@ -1,6 +1,6 @@
 body 
 {
-    background-color: #707070;
+	background-color:#353535
 }
 
 #title 
@@ -17,9 +17,23 @@ body
 {
     font-size: 30px;
     width: 70%;
-    margin-left: 15%;
+	margin-left: auto;
+	margin-right: auto;
     padding: 25px;
-    background-color: #b2b2b2;
+    background-color: #1A1A1A;
+	border-radius: 7px;
+}
+
+#signupDiv
+{
+	
+	font-size: 30px;
+	width: 70%;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 25px;
+	background-color: #1A1A1A;
+	border-radius: 7px;
 }
 
 #loggedInDiv
@@ -40,6 +54,17 @@ body
     background-color: #b2b2b2;
 }
 
+#styleButton
+{
+	margin-left: 80%;
+	width: 14%;
+	margin-right: 2%;
+	margin-top: .5%;
+	margin-bottom: -2%;
+	font-size: 20px;
+	font-family: 'Ubuntu', sans-serif;
+}
+
 .buttons
 {
     font-size: 30px;
@@ -49,10 +74,21 @@ body
     font-family: 'Ubuntu', sans-serif;
 }
 
-.buttons:hover{
+.buttons:hover
+{
     background-color: #00d5124f;
     color: #FFFFFF;
     opacity: 50%;
+}
+
+#switchToSignup
+{
+	margin-top: 1%;
+}
+
+#switchToLogin
+{
+	margin-top: 1%;
 }
 
 #loginName
@@ -61,6 +97,24 @@ body
 }
 #loginPassword
 {
+	font-size: 30px;
+	margin-bottom: 40px;
+}
+#signupName
+{
+	font-size: 30px;
+}
+#signupUserName
+{
+	font-size: 30px;
+}
+#signupPassword
+{
+	font-size: 30px;
+}
+#signupPasswordConfirm
+{
+	margin-bottom: 40px;
 	font-size: 30px;
 }
 #searchText
@@ -73,15 +127,27 @@ body
 }
 
 input[type="text"],input[type="password"]{
-    border-radius: 25px;
+    border-radius: 15px;
     text-align: center;
     width: 80%;
     margin-left: 10%;
     margin-bottom: 2%;
+	background-color: rgba(255,255,255,0.64);
     font-family: 'Ubuntu', sans-serif;
 }
 
-#inner-title{
+span.inner-title{
+    display: inline-block;
+    font-size: 1em;
+    width: 90%;
+    text-align: center;
+    margin-left: 5%;
+    margin-bottom: 2%;
+    font-family: 'Ubuntu', sans-serif;
+    color: #F5F5F5;
+}
+
+#loginResult{
     display: inline-block;
     font-size: 0.8em;
     width: 90%;
@@ -92,7 +158,7 @@ input[type="text"],input[type="password"]{
     color: #95060a;
 }
 
-#loginResult{
+#signupResult{
     display: inline-block;
     font-size: 0.8em;
     width: 90%;
