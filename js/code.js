@@ -7,10 +7,6 @@ var lastName = "";
 
 function doLogin()
 {
-	document.getElementById("loginName").innerHTML = "User/Password combination incorrect";
-	document.getElementById("loginResult").innerHTML = "User/Password combination incorrect";
-	
-	
 	userId = 0;
 	firstName = "";
 	lastName = "";
@@ -71,7 +67,6 @@ function changeStyle()
 function replace(hide, show)
 {
 	// TODO - will hide / show the register and login panels
-	document.getElementById("signupResult").innerHTML = "Light / Dark Mode - button click!";
 	document.getElementById(hide).style.display="none";
 	document.getElementById(show).style.display="block";
 }
