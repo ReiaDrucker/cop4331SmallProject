@@ -71,8 +71,9 @@ function changeStyle()
 function replace(hide, show)
 {
 	// TODO - will hide / show the register and login panels
+	document.getElementById("signupResult").innerHTML = "Light / Dark Mode - button click!";
 	document.getElementById(hide).style.display="none";
-	document.getElementById(show).style.display"block";
+	document.getElementById(show).style.display="block";
 }
 
 function saveCookie()

@@ -14,25 +14,27 @@
 
 <h1 id="title">COP 4331 Group 25 Contact Manager</h1>
 	
-<div id="loginDiv" style="display:block">
-	<span class="inner-title">LOGIN</span>
-	<input type="text" id="loginName" placeholder="Username" /><br />
-	<input type="password" id="loginPassword" placeholder="Password"/><br />
-	<button type="button" id="loginButton" class="buttons" onclick="doLogin();"> Login </button>
-	<button type="button" id="switchToSignup" class="buttons" onclick="replace('loginDiv', 'signupDiv');"> Make Account</button>"
-	<span id="loginResult"></span>
-</div>
+<div id="wrapper">
+  		<div id="loginDiv" style="display:block">
+			<span class="inner-title">LOGIN</span>
+			<input type="text" id="loginName" placeholder="Username" /><br />
+			<input type="password" id="loginPassword" placeholder="Password"/><br />
+			<button type="button" id="loginButton" class="buttons" onclick="doLogin();"> Login </button>
+			<button type="button" id="switchToSignup" class="buttons" onclick="replace('loginDiv', 'signupDiv');"> Make Account</button>"
+			<span id="loginResult"></span>
+		</div>
 	
-<div id="signupDiv" style="display:none">
-	<span class="inner-title">Register now!</span>
-	<input type="text" id="signupName" placeholder="Name" /><br />
-	<input type="text" id="signupUserName" placeholder="Username" /><br />
-	<input type="password" id="signupPassword" placeholder="Password"/><br />
-	<input type="password" id="signupPasswordConfirm" placeholder="Confirm Password"/><br />
-	<button type="button" id="signupButton" class="buttons" onclick="doSignup();"> Register </button>
-	<button type="button" id="switchToLogin" class="buttons" onclick="replace('signupDiv', 'loginDiv');"> Back to Login</button>
-	<span id="signupResult"></span>
-</div>
+  		<div id="signupDiv" style="display:none">
+			<span class="inner-title">Register now!</span>
+			<input type="text" id="signupName" placeholder="Name" /><br />
+			<input type="text" id="signupUserName" placeholder="Username" /><br />
+			<input type="password" id="signupPassword" placeholder="Password"/><br />
+			<input type="password" id="signupPasswordConfirm" placeholder="Confirm Password"/><br />
+			<button type="button" id="signupButton" class="buttons" onclick="doSignup();"> Register </button>
+			<button type="button" id="switchToLogin" class="buttons" onclick="replace('signupDiv', 'loginDiv');"> Back to Login</button>
+			<span id="signupResult"></span>
+		</div>
+  </div>
 
 </body>
 </html>
