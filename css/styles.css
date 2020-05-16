@@ -16,22 +16,23 @@ body
 #loginDiv
 {
     font-size: 30px;
-    width: 41.3%;
-    margin-left: 9%;
+    width: 70%;
+	margin-left: auto;
+	margin-right: auto;
     padding: 25px;
     background-color: #1A1A1A;
-	float: left;
 	border-radius: 7px;
 }
 
 #signupDiv
 {
+	
 	font-size: 30px;
-	width: 30%;
-	margin-right: 9%;
+	width: 70%;
+	margin-left: auto;
+	margin-right: auto;
 	padding: 25px;
 	background-color: #1A1A1A;
-	float: right;
 	border-radius: 7px;
 }
 
@@ -55,8 +56,8 @@ body
 
 #styleButton
 {
-	margin-left: 90%;
-	width: 8%;
+	margin-left: 80%;
+	width: 14%;
 	margin-right: 2%;
 	margin-top: .5%;
 	margin-bottom: -2%;
@@ -73,10 +74,21 @@ body
     font-family: 'Ubuntu', sans-serif;
 }
 
-.buttons:hover{
+.buttons:hover
+{
     background-color: #00d5124f;
     color: #FFFFFF;
     opacity: 50%;
+}
+
+#switchToSignup
+{
+	margin-top: 1%;
+}
+
+#switchToLogin
+{
+	margin-top: 1%;
 }
 
 #loginName
@@ -90,24 +102,20 @@ body
 }
 #signupName
 {
-	margin-top: 7px;
-	font-size: 20px;
+	font-size: 30px;
 }
 #signupUserName
 {
-	margin-top: 7px;
-	font-size: 20px;
+	font-size: 30px;
 }
 #signupPassword
 {
-	margin-top: 7px;
-	font-size: 20px;
+	font-size: 30px;
 }
 #signupPasswordConfirm
 {
-	margin-top: 7px;
 	margin-bottom: 40px;
-	font-size: 20px;
+	font-size: 30px;
 }
 #searchText
 {

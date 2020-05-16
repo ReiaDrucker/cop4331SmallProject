@@ -7,6 +7,10 @@ var lastName = "";
 
 function doLogin()
 {
+	document.getElementById("loginName").innerHTML = "User/Password combination incorrect";
+	document.getElementById("loginResult").innerHTML = "User/Password combination incorrect";
+	
+	
 	userId = 0;
 	firstName = "";
 	lastName = "";
@@ -62,6 +66,13 @@ function changeStyle()
 {
 	// TODO - will change from light to dark mode
 	document.getElementById("signupResult").innerHTML = "Light / Dark Mode - button click!"; // DEBUG
+}
+
+function replace(hide, show)
+{
+	// TODO - will hide / show the register and login panels
+	document.getElementById(hide).style.display="none";
+	document.getElementById(show).style.display"block";
 }
 
 function saveCookie()
