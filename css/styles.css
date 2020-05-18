@@ -100,7 +100,11 @@ body
 	font-size: 30px;
 	margin-bottom: 40px;
 }
-#signupName
+#signupFirstName
+{
+	font-size: 30px;
+}
+#signupLastName
 {
 	font-size: 30px;
 }
