@@ -1,6 +1,4 @@
 <?php
-	include 'functions.php';
-
 	$inData = getRequestInfo();
 	
 	$id = 0;

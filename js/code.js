@@ -55,20 +55,49 @@ function doSignup()
 {
 	// TODO - will add new user to the database and sign them into their new account (so that they don't login after signing up)
 	// Notes:
-	// 		- Make sure the username doesn't already exist
+	// 		- **Make sure the username doesn't already exist in php endpoint, if there is then send error**
 	//		- Make sure the passwords match
+	//		- Also login on successful signup
 	
 	var firstName = document.getElementById("signupFirstName").value;
 	var lastName = document.getElementById("signupLastName").value;
-	var username = document.getElementById("signupUserName").value;
+	var userName = document.getElementById("signupUserName").value;
 	var password = document.getElementById("signupPassword").value;
 	var confirmPassword = document.getElementById("signupPasswordConfirm").value;
 	var hash = md5( password );
 	
 	document.getElementById("signupResult").innerHTML = "";
 	
-	var jsonPayload = '{"login" : "' + login + '", "password" : "' + hash + '"}';
+	// check if confirmPassword matches password
+	if (password !== confirmPassword)
+		{
+			document.getElementById("signupResult").innerHTML = "Passwords do not match";
+			return;
+		}
+	
+	var jsonPayload = '{"firstName" : "' + firstName + '", "lastName" : "' + lastName + '", "userName" : "' + userName + '", "hash" : "' + hash + '"}';
 	var url = urlBase + '/Signup.' + extension;
+	
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", url, false);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	
+	try
+	{
+		xhr.send(jsonPayload);
+		
+		var jsonObject = JSON.parse(xhr.responseText);
+		
+		// THIS DEPENDS ON FORMAT OF SIGNIN RESPONSE FROM php ENDPOINT
+		
+		
+		
+		
+	}
+	catch(err)
+	{
+		document.getElementById("signupResult").innerHTML = err.message;
+	}
 }
 
 function changeStyle()
