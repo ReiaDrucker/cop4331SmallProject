@@ -18,7 +18,6 @@ function doLogin()
 	document.getElementById("loginResult").innerHTML = "";
 
 	var jsonPayload = '{"login" : "' + login + '", "password" : "' + hash + '"}';
-	//var jsonPayload = '{"login" : "' + login + '", "password" : "' + password + '"}';
 	var url = urlBase + '/Login.' + extension;
 
 	var xhr = new XMLHttpRequest();
@@ -55,7 +54,21 @@ function doLogin()
 function doSignup()
 {
 	// TODO - will add new user to the database and sign them into their new account (so that they don't login after signing up)
-	document.getElementById("signupResult").innerHTML = "Register - button click!"; // DEBUG
+	// Notes:
+	// 		- Make sure the username doesn't already exist
+	//		- Make sure the passwords match
+	
+	var firstName = document.getElementById("signupFirstName").value;
+	var lastName = document.getElementById("signupLastName").value;
+	var username = document.getElementById("signupUserName").value;
+	var password = document.getElementById("signupPassword").value;
+	var confirmPassword = document.getElementById("signupPasswordConfirm").value;
+	var hash = md5( password );
+	
+	document.getElementById("signupResult").innerHTML = "";
+	
+	var jsonPayload = '{"login" : "' + login + '", "password" : "' + hash + '"}';
+	var url = urlBase + '/Signup.' + extension;
 }
 
 function changeStyle()
