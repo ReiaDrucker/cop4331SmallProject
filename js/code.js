@@ -1,4 +1,4 @@
-var urlBase = 'http://COP4331.xyz/LAMPAPI';
+var urlBase = 'https://COP4331.xyz/LAMPAPI';
 var extension = 'php';
 
 var userId = 0;
@@ -7,19 +7,26 @@ var lastName = "";
 
 function doLogin()
 {
+	// Reset variables to clear past login attempts
 	userId = 0;
 	firstName = "";
 	lastName = "";
 	
+	// Grab the data we need from the HTML fields
 	var login = document.getElementById("loginName").value;
 	var password = document.getElementById("loginPassword").value;
 	var hash = md5( password );
 	
 	document.getElementById("loginResult").innerHTML = "";
 
+	//Build our json payload
 	var jsonPayload = '{"login" : "' + login + '", "password" : "' + hash + '"}';
+	
+	//used for plaintext password
+	//var jsonPayload = '{"login" : "' + login + '", "password" : "' + password + '"}';
+	
+	
 	var url = urlBase + '/Login.' + extension;
-
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, false);
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
@@ -42,70 +49,61 @@ function doLogin()
 
 		saveCookie();
 	
-		window.location.href = "Contacts.html";
+		window.location.href = "contacts.html";
 	}
 	catch(err)
 	{
-		document.getElementById("loginResult").innerHTML = err.message;
+		//document.getElementById("loginResult").innerHTML = err.message;
 	}
 
 }
 
+// TODO - will add new user to the database and sign them into their new account (so that they don't login after signing up)
 function doSignup()
 {
-	// TODO - will add new user to the database and sign them into their new account (so that they don't login after signing up)
-	// Notes:
-	//		- Assuming php endpoint is called Signup.php
-	// 		- **Make sure the username doesn't already exist in php endpoint, if there is then send error**
-	//		- Also login on successful signup
-	
-	UserId = 0;
+	userId = 0;
+	firstName = "";
+	lastName = "";
 	
 	firstName = document.getElementById("signupFirstName").value;
 	lastName = document.getElementById("signupLastName").value;
-	var userName = document.getElementById("signupUserName").value;
+	
+	var login = document.getElementById("signupUserName").value;
 	var password = document.getElementById("signupPassword").value;
-	var confirmPassword = document.getElementById("signupPasswordConfirm").value;
 	var hash = md5( password );
 	
-	document.getElementById("signupResult").innerHTML = "";
+	document.getElementById("signupResult").innerHTML = ""; // DEBUG
 	
-	// check if confirmPassword matches password
-	if (password !== confirmPassword)
-		{
-			document.getElementById("signupResult").innerHTML = "Passwords do not match";
-			return;
-		}
-	
-	// setup and send JSON payload to php endpoint
-	var jsonPayload = '{"firstName" : "' + firstName + '", "lastName" : "' + lastName + '", "userName" : "' + userName + '", "hash" : "' + hash + '"}';
+	var jsonPayload = '{ "firstName" : "' + firstName
+					+ '", "lastName" : "' + lastName  
+					+ '", "login" : "'    + login 
+					+ '", "password" : "' + hash + '" }';
+					
 	var url = urlBase + '/Signup.' + extension;
 	
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, false);
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-	
 	try
 	{
 		xhr.send(jsonPayload);
 		
-		var jsonObject = JSON.parse(xhr.responseText);
-		
-		///// TODO - this code below depends on response from the signup php endpoint, I'm currently making assumptions about the endpoint so below could be a placeholder and is subject to change
+		var jsonObject = JSON.parse( xhr.responseText );
 		
 		userId = jsonObject.id;
 		
-		// if the ID is invalid, username is invalid
 		if( userId < 1 )
 		{
-			document.getElementById("signupResult").innerHTML = "Username already in use, please try again.";
+			document.getElementById("signupResult").innerHTML = "Sign Up Failed";
 			return;
 		}
 		
-		// log the new user in
+		firstName = jsonObject.firstName;
+		lastName = jsonObject.lastName;
+
 		saveCookie();
-		
-		window.location.href = "Contacts.html";
+	
+		window.location.href = "contacts.html";
 	}
 	catch(err)
 	{
