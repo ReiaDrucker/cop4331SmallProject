@@ -55,12 +55,14 @@ function doSignup()
 {
 	// TODO - will add new user to the database and sign them into their new account (so that they don't login after signing up)
 	// Notes:
+	//		- Assuming php endpoint is called Signup.php
 	// 		- **Make sure the username doesn't already exist in php endpoint, if there is then send error**
-	//		- Make sure the passwords match
 	//		- Also login on successful signup
 	
-	var firstName = document.getElementById("signupFirstName").value;
-	var lastName = document.getElementById("signupLastName").value;
+	UserId = 0;
+	
+	firstName = document.getElementById("signupFirstName").value;
+	lastName = document.getElementById("signupLastName").value;
 	var userName = document.getElementById("signupUserName").value;
 	var password = document.getElementById("signupPassword").value;
 	var confirmPassword = document.getElementById("signupPasswordConfirm").value;
@@ -75,6 +77,7 @@ function doSignup()
 			return;
 		}
 	
+	// setup and send JSON payload to php endpoint
 	var jsonPayload = '{"firstName" : "' + firstName + '", "lastName" : "' + lastName + '", "userName" : "' + userName + '", "hash" : "' + hash + '"}';
 	var url = urlBase + '/Signup.' + extension;
 	
@@ -88,11 +91,21 @@ function doSignup()
 		
 		var jsonObject = JSON.parse(xhr.responseText);
 		
-		// THIS DEPENDS ON FORMAT OF SIGNIN RESPONSE FROM php ENDPOINT
+		///// TODO - this code below depends on response from the signup php endpoint, I'm currently making assumptions about the endpoint so below could be a placeholder and is subject to change
 		
+		userId = jsonObject.id;
 		
+		// if the ID is invalid, username is invalid
+		if( userId < 1 )
+		{
+			document.getElementById("signupResult").innerHTML = "Username already in use, please try again.";
+			return;
+		}
 		
+		// log the new user in
+		saveCookie();
 		
+		window.location.href = "Contacts.html";
 	}
 	catch(err)
 	{
