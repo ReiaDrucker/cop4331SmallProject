@@ -129,6 +129,46 @@ body
 {
 	font-size: 30px;
 }
+#ContactsFirstNameText
+{
+	font-size: 30px;
+}
+#ContactsLastNameText
+{
+	font-size: 30px;
+}
+#ContactsEmailText
+{
+	font-size: 30px;
+}
+#ContactsPhoneText
+{
+	font-size: 30px;
+}
+#ContactsPhoneNumberText
+{
+	font-size: 30px;
+}
+#ContactsAddressText
+{
+	font-size: 30px;
+}
+#ContactsCityText
+{
+	font-size: 30px;
+}
+#ContactsStateText
+{
+	font-size: 30px;
+}
+#ContactsZIPCodeText
+{
+	font-size: 30px;
+}
+#ContactsPronounsText
+{
+	font-size: 30px;
+}
 
 input[type="text"],input[type="password"]{
     border-radius: 15px;
@@ -173,10 +213,11 @@ span.inner-title{
     color: #95060a;
 }
 
-#userName{
+#welcomeMessage{
     display: inline-block;
     width: 80%;
     margin-left: 10%;
+	font-family: 'Ubuntu', sans-serif;
     text-align: center;
 }
 
