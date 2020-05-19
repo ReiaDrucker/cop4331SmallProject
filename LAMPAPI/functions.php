@@ -16,7 +16,7 @@
 		{
 			if($this->conn != null)
 			{
-				close();
+				$this->close();
 			}
 		}
 
@@ -37,10 +37,11 @@
 		{
 			// Connect to the server
 			$this->conn = new mysqli($server, $user, $pass, $db);
-			// Check if a connectoin could be made and return an eerror if not
+			
+			// Check if a connection could be made and return an error if not
 			if ($this->conn->connect_error) 
 			{
-				returnWithError( $conn->connect_error );
+				$this->returnWithError( $conn->connect_error );
 				// return ;
 			}
 			return $this->conn;
@@ -52,7 +53,7 @@
 		function returnWithError($err)
 		{
 			$retValue = '{"error":"' . $err . '"}';
-			sendResultInfoAsJson( $retValue );
+			$this->sendResultInfoAsJson( $retValue );
 		}
 
 		/**
@@ -77,41 +78,45 @@
 		{
 			// Generate an sql query to insert some data into its table
 			$sql = "INSERT INTO $table_name ($cols) VALUES ($vals)";
+			
 			// Insert the data and return an error if it doesn't work
 			if( $result = $this->conn->query($sql) != TRUE )
 			{
-				returnWithError( $this->conn->error );
+				$this->returnWithError( $this->conn->error );
 			}
 		}
 
 		/**
 		*
 		*/
-		function login($user, $pass, $table_name="Users", $cols_request="ID, firstName, lastName")
+		function login($user, $pass, $table_name="Users", $cols_request="ID, FirstName, LastName")
 		{
+		    if($this->conn->connect_error)
+		    {
+		        return 1;
+		    }
 			// Generate an sql query to login
 			$sql = "SELECT $cols_request FROM $table_name where Login='$user' and Password='$pass'";
+			
 			// Login and fetch the users data
 			$result = $this->conn->query($sql);
+			
 			if($result->num_rows > 0)
 			{
-				$row = $result->fetch_assoc()
-				$retValue = '{"id":' . $row["ID"] . ',"firstName":"' . $row["firstName"] . '","lastName":"' . $row["lastName"] . '","error":""}';
-				sendResultInfoAsJson($retValue);
+				$row = $result->fetch_assoc();
+				$retValue = '{"id":' . $row["ID"] . ',"firstName":"' . $row["FirstName"] . '","lastName":"' . $row["LastName"] . '","error":""}';
+				$this->sendResultInfoAsJson($retValue);
 			}
 			else
 			{
-				returnWithError( "No Records Found" );
+				$this->returnWithError( "No Records Found" );
 			}
 		}
 
-		/**
-		*
-		*/
 		function search($req, $table_name="Contacts", $cols_request="ID, firstName, lastName", $search_col="firstName")
 		{
 			// Generate an sql query to search a table
-			$sql = "SELECT $cols_request FROM $table_name WHERE $search_col like %$req["search"]% and UserID=$req["userId"]";
+			$sql = "SELECT $cols_request FROM $table_name WHERE $search_col like %" . $req["search"] . "% and UserID=" . $req["userId"];
 			// Run the search
 			$result = $this->conn->query($sql);
 
@@ -120,7 +125,7 @@
 			// Give an error if nothing was found
 			if($result->num_rows <= 0)
 			{
-				returnWithError( "No Records Found" );
+				$this->returnWithError( "No Records Found" );
 			}
 			// Return the search results
 			else
@@ -136,8 +141,9 @@
 				}
 			}
 			$retValue = '{"results":[' . $searchResults . '],"error":""}';
-			sendResultInfoAsJson( $retValue );
+			$this->sendResultInfoAsJson( $retValue );
 		}
+		
 
 		/**
 		*
@@ -151,7 +157,7 @@
 
 			if($result != true)
 			{
-				returnWithError( "No Records Could Be Deleted" );
+				$this->returnWithError( "No Records Could Be Deleted" );
 			}
 		}
 
@@ -162,7 +168,7 @@
 		function close()
 		{
 			$this->conn->close();
-			$this->conn = null
+			$this->conn = null;
 		}
 	}
 ?>

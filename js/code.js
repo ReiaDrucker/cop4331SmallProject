@@ -1,4 +1,4 @@
-var urlBase = 'http://COP4331.xyz/LAMPAPI';
+var urlBase = 'https://COP4331.xyz/LAMPAPI';
 var extension = 'php';
 
 var userId = 0;
@@ -7,20 +7,26 @@ var lastName = "";
 
 function doLogin()
 {
+	// Reset variables to clear past login attempts
 	userId = 0;
 	firstName = "";
 	lastName = "";
 	
+	// Grab the data we need from the HTML fields
 	var login = document.getElementById("loginName").value;
 	var password = document.getElementById("loginPassword").value;
-//	var hash = md5( password );
+	var hash = md5( password );
 	
 	document.getElementById("loginResult").innerHTML = "";
 
-//	var jsonPayload = '{"login" : "' + login + '", "password" : "' + hash + '"}';
-	var jsonPayload = '{"login" : "' + login + '", "password" : "' + password + '"}';
+	//Build our json payload
+	var jsonPayload = '{"login" : "' + login + '", "password" : "' + hash + '"}';
+	
+	//used for plaintext password
+	//var jsonPayload = '{"login" : "' + login + '", "password" : "' + password + '"}';
+	
+	
 	var url = urlBase + '/Login.' + extension;
-
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, false);
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
@@ -43,19 +49,66 @@ function doLogin()
 
 		saveCookie();
 	
-		window.location.href = "Contacts.html";
+		window.location.href = "contacts.html";
 	}
 	catch(err)
 	{
-		document.getElementById("loginResult").innerHTML = err.message;
+		//document.getElementById("loginResult").innerHTML = err.message;
 	}
 
 }
 
+// TODO - will add new user to the database and sign them into their new account (so that they don't login after signing up)
 function doSignup()
 {
-	// TODO - will add new user to the database and sign them into their new account (so that they don't login after signing up)
-	document.getElementById("signupResult").innerHTML = "Register - button click!"; // DEBUG
+	userId = 0;
+	firstName = "";
+	lastName = "";
+	
+	firstName = document.getElementById("signupFirstName").value;
+	lastName = document.getElementById("signupLastName").value;
+	
+	var login = document.getElementById("signupUserName").value;
+	var password = document.getElementById("signupPassword").value;
+	var hash = md5( password );
+	
+	document.getElementById("signupResult").innerHTML = ""; // DEBUG
+	
+	var jsonPayload = '{ "firstName" : "' + firstName
+					+ '", "lastName" : "' + lastName  
+					+ '", "login" : "'    + login 
+					+ '", "password" : "' + hash + '" }';
+					
+	var url = urlBase + '/Signup.' + extension;
+	
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", url, false);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try
+	{
+		xhr.send(jsonPayload);
+		
+		var jsonObject = JSON.parse( xhr.responseText );
+		
+		userId = jsonObject.id;
+		
+		if( userId < 1 )
+		{
+			document.getElementById("signupResult").innerHTML = "Sign Up Failed";
+			return;
+		}
+		
+		firstName = jsonObject.firstName;
+		lastName = jsonObject.lastName;
+
+		saveCookie();
+	
+		window.location.href = "contacts.html";
+	}
+	catch(err)
+	{
+		document.getElementById("signupResult").innerHTML = err.message;
+	}
 }
 
 function changeStyle()
