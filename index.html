@@ -1,29 +1,38 @@
-<html><head>
-<title>COP 4331 Group 25 Contact Manager</title>
-<script type="text/javascript" src="js/md5.js"></script>
-<script type="text/javascript" src="js/code.js"></script>
-    <link href="css/styles.css" rel="stylesheet">	
+<!DOCTYPE html>
+<head>
+    <!-- Fonts -->
+    <link id="mode" href="css/darkMode.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+
+    <!-- Navigation Bar -->
+    <div class="topnav">
+        <!-- <button type="button" id="styleButton" class="buttons" onclick="changeStyle();"> Light Mode </button> -->
+        <a class="active" href="./index.html" id="home">Home</a>
+        <a id="about" href="./html/about.html">About</a>
+        <a id="modeDisplay" onclick="changeStyle();">Light Mode</a>
+
+    </div>
+    <!-- End of Navigation Bar -->
+
+    <title>COP 4331 Group 25 Contact Manager</title>
+    <script type="text/javascript" src="js/md5.js"></script>
+    <script type="text/javascript" src="js/code.js"></script>
+
 </head>
 <body>
 
-	
-<div id="styleSelector">
-	<button type="button" id="styleButton" class="buttons" onclick="changeStyle();"> Light / Dark Mode </button>
-</div>
+    <h1 id="title">Contact Manager</h1>
 
-<h1 id="title">COP 4331 Group 25 Contact Manager</h1>
-	
-<div id="wrapper">
-  		<div id="loginDiv" style="display:block">
-			<span class="inner-title">LOGIN</span>
-			<input type="text" id="loginName" placeholder="Username" /><br />
-			<input type="password" id="loginPassword" placeholder="Password"/><br />
-			<button type="button" id="loginButton" class="buttons" onclick="doLogin();"> Login </button>
-		  <button type="button" id="switchToSignup" class="buttons" onclick="replace('loginDiv', 'signupDiv');"> Make Account</button>
+    <div id="wrapper">
+  		<div class="container" id="loginDiv" style="display:block">
+            <span class="inner-title">LOGIN</span>
+            <input type="text" id="loginName" placeholder="Username" /><br />
+            <input type="password" id="loginPassword" placeholder="Password"/><br />
+            <button type="button" id="loginButton" class="buttons" onclick="doLogin();"> Login </button>
+            <button type="button" id="switchToSignup" class="buttons" onclick="replace('loginDiv', 'signupDiv');">Make Account</button>
 			<span id="loginResult"></span>
 		</div>
-	
+
   		<div id="signupDiv" style="display:none">
 			<span class="inner-title">Register now!</span>
 			<input type="text" id="signupFirstName" placeholder="FirstName" /><br />
