@@ -50,6 +50,36 @@ html
 	padding: 0;
 }
 
+#Creators
+{
+	font-family: 'Ubuntu', sans-serif;
+	text-align: center;
+	color: white;
+}
+
+/* #outer
+{
+
+} */
+
+#LAMP
+{
+	width: 90%;
+	text-align: center;
+	margin-left: 5%;
+	position: absolute;
+	bottom: 0;
+	background-color: white;
+}
+
+img
+{
+	width: 100%;
+	max-width: 800px;
+	display: inline-block;
+	align-items: center;
+}
+
 #loginDiv
 {
 	background: Transparent;
