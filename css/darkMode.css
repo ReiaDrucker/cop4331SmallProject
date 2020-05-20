@@ -114,6 +114,7 @@ html
 
 .buttons
 {
+	background-color: white;
     font-size: 30px;
     border-radius: 25px;
     width: 50%;
@@ -133,6 +134,11 @@ html
 	margin-top: 1%;
 }
 
+::placeholder
+{
+	color: black;
+}
+
 #switchToLogin
 {
 	margin-top: 1%;
@@ -141,11 +147,13 @@ html
 #loginName
 {
 	font-size: 30px;
+	color: black;
 }
 #loginPassword
 {
 	font-size: 30px;
 	margin-bottom: 40px;
+	color: black;
 }
 #signupName
 {
