@@ -8,7 +8,7 @@
         <a id="about" href="./html/about.html">About</a>
         <a id="modeDisplay" onclick="changeStyle();">Light Mode</a>
 
-    </div>
+</div>
     <!-- End of Navigation Bar -->
 	
 	
@@ -27,34 +27,53 @@
 </head>
 <body>
 
-<h1 id="title">COP 4331 Group 25 Contact Manager</h1>
+<h1 id="title">Contact Manager</h1>
 
-<div id="loggedInDiv">
-	<span id="userName"></span><br />
-	<button type="button" id="logoutButton" class="buttons" onclick="doLogout();"> Log Out </button>
-</div>
-
-<div id="accessUIDiv">
-	<br />
-
-	<input type="text" id="searchText" placeholder="Contacts To Search For"/>
-	<button type="button" id="searchContactsButton" class="buttons" onclick="searchContacts();"> Search Contacts </button><br />
-	<span id="ContactsSearchResult"></span>
-	<p id="ContactsList">
-	</p><br /><br />
-
-	<input type="text" id="ContactsFirstNameText" placeholder="Contact's First Name">
-	<input type="text" id="ContactsLastNameText" placeholder="Contact's Last Name">
-	<input type="text" id="ContactsEmailText" placeholder="Contact's Email">
-	<input type="text" id="ContactsPhoneText" placeholder="Contact's Phone Number">
-	<input type="text" id="ContactsAddressText" placeholder="Contact's Address">
-	<input type="text" id="ContactsCityText" placeholder="Contact's City">
-	<input type="text" id="ContactsStateText" placeholder="Contact's State">
-	<input type="text" id="ContactsZIPCodeText" placeholder="Contact's ZIP Code">
-	<input type="text" id="ContactsPronounsText" placeholder="Contact's Pronouns">
-
-	<button type="button" id="addContactsButton" class="buttons" onclick="addContacts();"> Add Contact </button><br />
-	<span id="ContactsAddResult"></span>
+	
+<div id="wrapper">
+	
+	<!-- Message that is displayed at the top of the page -->
+	<div id="loggedInDiv" style="display:block">
+		<span id="userName"></span><br />
+	</div>
+	
+	<!-- Div used for browsing contacts -->
+	<div id="searchContactsDiv" style="display:block">
+		<br />
+			<div id="searchPanelDiv" style="display:block">
+				<input type="text" id="searchText" placeholder="Contacts To Search For"/>
+				<button type="button" id="searchContactsButton" class="buttons" onclick="searchContacts();"> Search Contacts </button><br />
+			</div>
+		<span id="ContactsSearchResult"></span>
+		<p id="ContactsList">
+		</p><br /><br />
+	</div>
+	
+	<!-- Div used to add contacts, starts hidden -->
+	<div id="addContactsDiv" style="display:none">
+		<input type="text" id="ContactsFirstNameText" placeholder="Contact's First Name">
+		<input type="text" id="ContactsLastNameText" placeholder="Contact's Last Name">
+		<input type="text" id="ContactsEmailText" placeholder="Contact's Email">
+		<input type="text" id="ContactsPhoneText" placeholder="Contact's Phone Number">
+		<input type="text" id="ContactsAddressText" placeholder="Contact's Address">
+		<input type="text" id="ContactsCityText" placeholder="Contact's City">
+		<input type="text" id="ContactsStateText" placeholder="Contact's State">
+		<input type="text" id="ContactsZIPCodeText" placeholder="Contact's ZIP Code">
+		<input type="text" id="ContactsPronounsText" placeholder="Contact's Pronouns">
+	
+		<span id="ContactsAddResult"></span>
+	</div>
+	
+	<!-- Contains Buttons on bottom of the screen, they swap depending on if you're adding a contact or browsing contacts -->
+	<div id="footerDiv" style="display:block">
+		<!--- Buttons that are visible on Search Contacts screen -->
+		<button type="button" id="logoutButton" class="buttons" style="display:block" onclick="doLogout();"> Log Out </button>
+		<button type="button" id="goToAddContactsButton" class="buttons" style="display:block" onclick="goToAddContacts();"> Add Contact </button><br />
+	
+		<!--- Buttons that are visible on Add Contacts screen, they start hidden -->
+		<button type="button" id="cancelAddContactButton" class="buttons" style="display:none" onclick="goToSearchContacts();"> Cancel </button><br />
+		<button type="button" id="addContactsButton" class="buttons" style="display:none" onclick="addContacts();"> Add </button><br />
+	</div>
 </div>
 
 </body>

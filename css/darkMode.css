@@ -80,13 +80,14 @@ html
 #loggedInDiv
 {
     font-size: 30px;
-    width: 70%;
-    margin-left: 15%;
+    width: 77.6%;
+    margin-left: 10%;
     padding: 25px;
-    background-color: #b2b2b2;
+	border-radius: 25px;
+    background-color: rgba(213,213,213,0.87);
 }
 
-#accessUIDiv
+#addContactsDiv
 {
     font-size: 30px;
     width: 70%;
@@ -182,9 +183,52 @@ html
 }
 #searchText
 {
+	float: left;
+	width: 67%;
+	margin-left: 10%;
 	font-size: 30px;
 }
 #colorText
+{
+	font-size: 30px;
+}
+#ContactsFirstNameText
+{
+	font-size: 30px;
+}
+#ContactsLastNameText
+{
+	font-size: 30px;
+}
+#ContactsEmailText
+{
+	font-size: 30px;
+}
+#ContactsPhoneText
+{
+	font-size: 30px;
+}
+#ContactsPhoneNumberText
+{
+	font-size: 30px;
+}
+#ContactsAddressText
+{
+	font-size: 30px;
+}
+#ContactsCityText
+{
+	font-size: 30px;
+}
+#ContactsStateText
+{
+	font-size: 30px;
+}
+#ContactsZIPCodeText
+{
+	font-size: 30px;
+}
+#ContactsPronounsText
 {
 	font-size: 30px;
 }
@@ -237,12 +281,34 @@ span.inner-title{
     width: 80%;
     margin-left: 10%;
     text-align: center;
+	color: #000000
 }
 
 #logoutButton{
     width: 20%;
-    margin-left: 40%;
+    margin-left: 10%;
+	margin-top: 1%;
+	float: left;
 }
+#goToAddContactsButton{
+	width: 20%;
+    margin-right: 10%;
+	margin-top: 1%;
+	float: right;
+}
+#cancelAddContactButton{
+    width: 20%;
+    margin-left: 10%;
+	margin-top: 1%;
+	float: left;
+}
+#addContactsButton{
+	width: 20%;
+    margin-right: 10%;
+	margin-top: 1%;
+	float: right;
+}
+
 
 select{
     width: 30%;
@@ -254,6 +320,13 @@ select{
 
 #colorSearchResult{
     display: none;
+}
+
+#searchContactsButton{
+	float: right;
+	width: 12%;
+	margin-left: 0%;
+	margin-right: 10%;
 }
 
 #colorAddResult{

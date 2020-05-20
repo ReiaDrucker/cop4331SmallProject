@@ -87,6 +87,20 @@ function doSignup()
 			return;
 		}
 	
+	// check for invalid password
+	if (password === "" || password === null)
+		{
+			document.getElementById("signupResult").innerHTML = "Invalid password";
+			return;
+		}
+	
+	// check for invalid username
+	if (login === "" || login === null)
+		{
+			document.getElementById("signupResult").innerHTML = "Invalid username";
+			return;
+		}
+	
 	var jsonPayload = '{ "firstName" : "' + firstName
 					+ '", "lastName" : "' + lastName
 					+ '", "login" : "'    + login
@@ -146,6 +160,21 @@ function changeStyle()
 
 	darkModeToggle = !darkModeToggle;
 }
+
+function goToAddContacts()
+{
+	replace('logoutButton', 'cancelAddContactButton');
+	replace('goToAddContactsButton', 'addContactsButton');
+	replace('searchContactsDiv', 'addContactsDiv');
+}
+
+function goToSearchContacts()
+{
+	replace('cancelAddContactButton', 'logoutButton');
+	replace('addContactsButton', 'goToAddContactsButton');
+	replace('addContactsDiv', 'searchContactsDiv');
+}
+
 
 function replace(hide, show)
 {
