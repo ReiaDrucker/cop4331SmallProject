@@ -75,10 +75,18 @@ function doSignup()
 
 	var login = document.getElementById("signupUserName").value;
 	var password = document.getElementById("signupPassword").value;
+	var confirmPassword = document.getElementById("signupPasswordConfirm").value;
 	var hash = md5( password );
 
 	document.getElementById("signupResult").innerHTML = ""; // DEBUG
-
+	
+	// check if confirmPassword matches password
+	if (password !== confirmPassword)
+		{
+			document.getElementById("signupResult").innerHTML = "Passwords do not match";
+			return;
+		}
+	
 	var jsonPayload = '{ "firstName" : "' + firstName
 					+ '", "lastName" : "' + lastName
 					+ '", "login" : "'    + login
@@ -187,7 +195,7 @@ function readCookie()
 	}
 	else
 	{
-		document.getElementById("userName").innerHTML = "Logged in as " + firstName + " " + lastName;
+		document.getElementById("welcomeMessage").innerHTML = "Welcome, " + firstName + " " + lastName;
 	}
 }
 
