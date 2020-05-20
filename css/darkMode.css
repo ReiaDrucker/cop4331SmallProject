@@ -82,7 +82,7 @@ html
     font-size: 30px;
     width: 77.6%;
     margin-left: 10%;
-    padding: 25px;
+    padding: 10px;
 	border-radius: 25px;
     background-color: rgba(213,213,213,0.87);
 }
@@ -282,7 +282,8 @@ span.inner-title{
     margin-left: 10%;
     text-align: center;
 	font-family: 'Ubuntu', sans-serif;
-	color: #000000
+	color: #000000;
+	padding: 0px;
 }
 
 #logoutButton{
@@ -340,4 +341,37 @@ select{
     margin-bottom: 1%;
     font-family: 'Ubuntu', sans-serif;
     color: #95060a;
+}
+
+.collapsible {
+  	background-color: #9E9E9E;
+  	color: #444;
+  	cursor: pointer;
+ 	padding: 18px;
+	width: 80%;
+	border: none;
+ 	text-align: left;
+ 	outline: none;
+ 	font-size: 15px;
+	font-family: 'Ubuntu', sans-serif;
+}
+
+.active, .collapsible:hover {
+ 	background-color: #E3E3E3;
+}
+
+.content {
+  	padding: 0 18px;
+  	display: none;
+  	overflow: hidden;
+  	background-color: #f1f1f1;
+  	max-height: 0;
+  	transition: max-height 0.2s ease-out;
+} 
+
+#ContactsList {
+	height: 50%;
+	overflow: auto;
+	background: transparent;
+	padding: 5px;
 }

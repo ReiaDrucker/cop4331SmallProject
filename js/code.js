@@ -318,6 +318,7 @@ function searchContacts()
 				document.getElementById("ContactsSearchResult").innerHTML = "Contact(s) has been retrieved";
 				var jsonObject = JSON.parse( xhr.responseText );
 
+				// go through array of contacts
 				for( var i=0; i<jsonObject.results.length; i++ )
 				{
 					ContactsList += jsonObject.results[i];

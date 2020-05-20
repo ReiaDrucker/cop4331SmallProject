@@ -44,9 +44,16 @@
 				<input type="text" id="searchText" placeholder="Contacts To Search For"/>
 				<button type="button" id="searchContactsButton" class="buttons" onclick="searchContacts();"> Search Contacts </button><br />
 			</div>
-		<span id="ContactsSearchResult"></span>
-		<p id="ContactsList">
-		</p><br /><br />
+		
+			<div id="contactsListDiv" style="display:block">
+				<span id="ContactsSearchResult"></span>
+				<p id="ContactsList">
+				
+				
+				</p>
+			</div>
+		
+		<br /><br />
 	</div>
 	
 	<!-- Div used to add contacts, starts hidden -->
@@ -76,6 +83,25 @@
 		<button type="button" id="addContactsButton" class="buttons" style="display:none" onclick="addContacts();"> Add </button><br />
 	</div>
 </div>
+	
+<!--- Script used for animation on contact information expansion -->	
+<script>
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.maxHeight){
+      content.style.maxHeight = null;
+    } 
+	else {
+      content.style.maxHeight = content.scrollHeight + "px";
+    } 
+  });
+}
+</script>
 
 </body>
 </html>
