@@ -93,7 +93,7 @@ html
     width: 70%;
     margin-left: 15%;
     padding: 25px;
-    background-color: #b2b2b2;
+    background: transparent;
 }
 
 /* Trying to use navigation bar instead */
@@ -281,6 +281,7 @@ span.inner-title{
     width: 80%;
     margin-left: 10%;
     text-align: center;
+	font-family: 'Ubuntu', sans-serif;
 	color: #000000
 }
 

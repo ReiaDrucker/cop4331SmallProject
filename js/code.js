@@ -60,7 +60,8 @@ function doLogin()
 	{
 		//document.getElementById("loginResult").innerHTML = err.message;
 	}
-
+	
+	document.getElementById('userName').innerHTML = "Welcome, " + firstName + " " + lastName + "!";
 }
 
 // TODO - will add new user to the database and sign them into their new account (so that they don't login after signing up)
@@ -136,6 +137,8 @@ function doSignup()
 	{
 		document.getElementById("signupResult").innerHTML = err.message;
 	}
+	
+	document.getElementById('userName').innerHTML = "Welcome, " + firstName + " " + lastName + "!";
 }
 
 function changeStyle()
@@ -166,6 +169,8 @@ function goToAddContacts()
 	replace('logoutButton', 'cancelAddContactButton');
 	replace('goToAddContactsButton', 'addContactsButton');
 	replace('searchContactsDiv', 'addContactsDiv');
+	
+	document.getElementById('userName').innerHTML = "Please add your contact's information below";
 }
 
 function goToSearchContacts()
@@ -173,6 +178,8 @@ function goToSearchContacts()
 	replace('cancelAddContactButton', 'logoutButton');
 	replace('addContactsButton', 'goToAddContactsButton');
 	replace('addContactsDiv', 'searchContactsDiv');
+	
+	document.getElementById('userName').innerHTML = "Welcome, " + firstName + " " + lastName + "!";
 }
 
 
@@ -224,7 +231,7 @@ function readCookie()
 	}
 	else
 	{
-		document.getElementById("userName").innerHTML = "Welcome, " + firstName + " " + lastName;
+		document.getElementById("userName").innerHTML = "Welcome, " + firstName + " " + lastName + "!";
 	}
 }
 
