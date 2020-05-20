@@ -328,7 +328,7 @@ function searchContacts()
 					}
 				}
 
-				document.getElementsByTagName("p")[0].innerHTML = ContactsList;
+				document.getElementsByID("contactsList")[0].innerHTML = ContactsList;
 			}
 		};
 		xhr.send(jsonPayload);

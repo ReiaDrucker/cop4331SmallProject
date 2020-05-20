@@ -344,16 +344,17 @@ select{
 }
 
 .collapsible {
-  	background-color: #9E9E9E;
-  	color: #444;
+  	background-color: rgba(213,213,213,0.87);
+  	color: #000000;
   	cursor: pointer;
  	padding: 18px;
-	width: 80%;
-	border: none;
- 	text-align: left;
+	width: 100%;
+	border: 1;
+ 	text-align: center;
  	outline: none;
- 	font-size: 15px;
+ 	font-size: 30px;
 	font-family: 'Ubuntu', sans-serif;
+	border-radius: 25px;
 }
 
 .active, .collapsible:hover {
@@ -361,17 +362,24 @@ select{
 }
 
 .content {
-  	padding: 0 18px;
-  	display: none;
-  	overflow: hidden;
-  	background-color: #f1f1f1;
+	padding: 0 18px;
   	max-height: 0;
+  	overflow: hidden;
   	transition: max-height 0.2s ease-out;
+  	background-color: rgba(131,131,131,0.87);
+	font-family: 'Ubuntu', sans-serif;
+	font-size: 25px;
+	color: #000000;
+	border-radius: 25px;
 } 
 
 #ContactsList {
 	height: 50%;
+	width: 80%;
+	margin-left: 10%;
 	overflow: auto;
 	background: transparent;
 	padding: 5px;
 }
+
+
