@@ -135,7 +135,7 @@ function changeStyle(number)
 	//         |->about.html
 	// this file is one layer deep in the root
 	if (number == 0)
-		pathDepth = "";
+		pathDepth = ".";
 	else if (number == 1)
 		pathDepth = "..";
 	else if (number == 2)
