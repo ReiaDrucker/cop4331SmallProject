@@ -195,7 +195,7 @@ function readCookie()
 	}
 	else
 	{
-		document.getElementById("welcomeMessage").innerHTML = "Welcome, " + firstName + " " + lastName;
+		document.getElementById("userName").innerHTML = "Welcome, " + firstName + " " + lastName;
 	}
 }
 
