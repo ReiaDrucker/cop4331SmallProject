@@ -53,19 +53,15 @@ html
 #Creators
 {
 	font-family: 'Ubuntu', sans-serif;
-	text-align: left;
+	text-align: center;
 	color: white;
-		margin-left: 45%;
-		padding: 0;
 }
 
 #Class
 {
 	font-family: 'Ubuntu', sans-serif;
-	text-align: left;
+	text-align: center;
 	color: white;
-		margin-left: 45%;
-		padding: 0;
 }
 
 /* #outer
