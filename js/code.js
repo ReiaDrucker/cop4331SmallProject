@@ -315,8 +315,6 @@ function searchContacts()
 	var srch = document.getElementById("searchText").value;
 	document.getElementById("ContactsSearchResult").innerHTML = "";
 
-	var ContactsList = "";
-
 	var jsonPayload = '{"search" : "' + srch + '","userId" : ' + userId + '}';
 	var url = urlBase + '/SearchContacts.' + extension;
 
@@ -335,14 +333,45 @@ function searchContacts()
 				// go through array of contacts
 				for( var i=0; i<jsonObject.results.length; i++ )
 				{
-					ContactsList += jsonObject.results[i];
-					if( i < jsonObject.results.length - 1 )
-					{
-						ContactsList += "<br />\r\n";
-					}
+					// make new button for the collapsable component
+					var collButton = document.createElement("button");
+					collButton.className = "collapsible";
+					collButton.innerHTML = jsonObject.firstName + " " + jsonObject.lastName;
+					
+					// make new div for the content
+					var contentDiv = document.createElement("div");
+					contentDiv.className = "content";
+					
+					// create the <p> for the content div
+					var pronounP = document.createElement("p");
+					var emailPhoneP = document.createElement("p");
+					var addressP = document.createElement("p");
+					var cityStateZipP = document.createElement("p");
+					
+					// fill <p>s with content from json
+					pronounP.innerHTML = "Pronouns: " + jsonObject.pronouns;
+					emailPhoneP.innerHTML = "Email: " + jsonObject.email + "   Phone: " + jsonObject.phone;
+					addressP.innerHTML = "Address: " + jsonObject.address;
+					cityStateZipP.innerHTML = jsonObject.city + ", " + jsonObject.state + " " + jsonObject.ZIP;
+					
+					// add the <p>s to the content div
+					contentDiv.appendChild(pronounP);
+					contentDiv.appendChild(emailPhoneP);
+					contentDiv.appendChild(addressP);
+					contentDiv.appendChild(cityStateZipP);
+					
+					// TODO - create edit and delete buttons
+					
+					
+					
+					// TODO - add buttons to the content div
+					
+					
+					
+					// add collbutton and contentDiv to the contactsList
+					document.getElementById("ContactsList").appendChild(collButton);
+					document.getElementById("ContactsList").appendChild(contentDiv);
 				}
-
-				document.getElementsByID("contactsList")[0].innerHTML = ContactsList;
 			}
 		};
 		xhr.send(jsonPayload);
