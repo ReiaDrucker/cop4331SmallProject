@@ -336,7 +336,7 @@ function searchContacts()
 					// make new button for the collapsable component
 					var collButton = document.createElement("button");
 					collButton.className = "collapsible";
-					collButton.innerHTML = jsonObject.firstName + " " + jsonObject.lastName;
+					collButton.innerHTML = jsonObject.results[i].firstName + " " + jsonObject.results[i].lastName;
 					
 					// make new div for the content
 					var contentDiv = document.createElement("div");
@@ -349,10 +349,10 @@ function searchContacts()
 					var cityStateZipP = document.createElement("p");
 					
 					// fill <p>s with content from json
-					pronounP.innerHTML = "Pronouns: " + jsonObject.pronouns;
-					emailPhoneP.innerHTML = "Email: " + jsonObject.email + "   Phone: " + jsonObject.phone;
-					addressP.innerHTML = "Address: " + jsonObject.address;
-					cityStateZipP.innerHTML = jsonObject.city + ", " + jsonObject.state + " " + jsonObject.ZIP;
+					pronounP.innerHTML = "Pronouns: " + jsonObject.results[i].pronouns;
+					emailPhoneP.innerHTML = "Email: " + jsonObject.results[i].email + "   Phone: " + jsonObject.results[i].phone;
+					addressP.innerHTML = "Address: " + jsonObject.results[i].address;
+					cityStateZipP.innerHTML = jsonObject.results[i].city + ", " + jsonObject.results[i].state + " " + jsonObject.results[i].ZIP;
 					
 					// add the <p>s to the content div
 					contentDiv.appendChild(pronounP);
