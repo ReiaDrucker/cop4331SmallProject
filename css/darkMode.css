@@ -50,6 +50,43 @@ html
 	padding: 0;
 }
 
+#Creators
+{
+	font-family: 'Ubuntu', sans-serif;
+	text-align: center;
+	color: white;
+}
+
+#Class
+{
+	font-family: 'Ubuntu', sans-serif;
+	text-align: center;
+	color: white;
+}
+
+/* #outer
+{
+
+} */
+
+#LAMP
+{
+	width: 90%;
+	text-align: center;
+	margin-left: 5%;
+	position: absolute;
+	bottom: 0;
+	box-shadow: inset 0 0 2000px rgba(255, 255, 255, .2);
+}
+
+img
+{
+	width: 100%;
+	max-width: 800px;
+	display: inline-block;
+	align-items: center;
+}
+
 #loginDiv
 {
 	background: Transparent;

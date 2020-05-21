@@ -7,8 +7,8 @@ var lastName = "";
 
 // Mode variables
 var darkModeToggle = true;
-var darkMode = './css/darkMode.css';
-var lightMode = './css/lightMode.css';
+var darkMode = '/css/darkMode.css';
+var lightMode = '/css/lightMode.css';
 
 function doLogin()
 {
@@ -80,7 +80,7 @@ function doSignup()
 	var hash = md5( password );
 
 	document.getElementById("signupResult").innerHTML = ""; // DEBUG
-	
+
 	// check if confirmPassword matches password
 	if (password !== confirmPassword)
 		{
@@ -141,8 +141,22 @@ function doSignup()
 	document.getElementById('userName').innerHTML = "Welcome, " + firstName + " " + lastName + "!";
 }
 
-function changeStyle()
+function changeStyle(number)
 {
+	var pathDepth;
+	// This is the depth the file is in relation to the root.
+	// Example:
+	// root
+	// |->index.html
+	// |->html |
+	//         |->about.html
+	// this file is one layer deep in the root
+	if (number == 0)
+		pathDepth = ".";
+	else if (number == 1)
+		pathDepth = "..";
+	else if (number == 2)
+		pathDepth = "../..";
 	// TODO: remember mode state when moving pages
 	console.log('Press recorded!');
 	var mode;
@@ -158,7 +172,7 @@ function changeStyle()
 		mode = 'Light Mode';
 		path = darkMode;
 	}
-	document.getElementById('mode').setAttribute('href', path);
+	document.getElementById('mode').setAttribute('href', pathDepth + path);
 	document.getElementById('modeDisplay').innerHTML = mode;
 
 	darkModeToggle = !darkModeToggle;
