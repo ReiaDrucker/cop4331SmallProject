@@ -180,6 +180,18 @@
 				$this->returnWithError( "No Records Could Be Deleted" );
 			}
 		}
+		
+		function update($data, $table="Contacts")
+		{
+		    $sql = "UPDATE $table SET `FirstName` = '" . $data["firstName"] . "', `LastName` = '" . $data["lastName"] . "', `Email` = '" . $data["email"] . "', `Phone` = '" . $data["phone"] . "', `Address` = '" . $data["address"] . "', `City` = '" . $data["city"] . "', `State` = '" . $data["state"] . "', `ZIP_Code` = '" . $data["zip code"] . "', `Pronouns` = '" . $data["pronouns"] . "' WHERE `Contacts`.`ID` = " . $data["ID"];
+		    
+		    $result = $this->conn->query($sql);
+
+			if($result != true)
+			{
+				$this->returnWithError( "No Records Could Be Updated" );
+			}
+		}
 
 		/**
 		* Close the connection to the database
