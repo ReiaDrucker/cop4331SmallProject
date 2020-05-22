@@ -1,61 +1,21 @@
 <?php
 
-	$inData = getRequestInfo();
+	include 'functions.php';
+	$sql = new sql();
 	
-	$searchResults = "";
-	$searchCount = 0;
-
-	$conn = new mysqli("localhost", "smallgro_Reia", "8D^A9f7TxA4]", "smallgro_COP4331");
-	if ($conn->connect_error) 
-	{
-		returnWithError( $conn->connect_error );
-	} 
-	else
-	{
-		$sql = "select Name from Colors where Name like '%" . $inData["search"] . "%' and UserID=" . $inData["userId"];
-		$result = $conn->query($sql);
-		if ($result->num_rows > 0)
-		{
-			while($row = $result->fetch_assoc())
-			{
-				if( $searchCount > 0 )
-				{
-					$searchResults .= ",";
-				}
-				$searchCount++;
-				$searchResults .= '"' . $row["Name"] . '"';
-			}
-		}
-		else
-		{
-			returnWithError( "No Records Found" );
-		}
-		$conn->close();
-	}
-
-	returnWithInfo( $searchResults );
-
-	function getRequestInfo()
-	{
-		return json_decode(file_get_contents('php://input'), true);
-	}
-
-	function sendResultInfoAsJson( $obj )
-	{
-		header('Content-type: application/json');
-		echo $obj;
-	}
+	$inData = $sql->getRequestInfo();
 	
-	function returnWithError( $err )
-	{
-		$retValue = '{"id":0,"firstName":"","lastName":"","error":"' . $err . '"}';
-		sendResultInfoAsJson( $retValue );
-	}
+	$sql->connect();
 	
-	function returnWithInfo( $searchResults )
-	{
-		$retValue = '{"results":[' . $searchResults . '],"error":""}';
-		sendResultInfoAsJson( $retValue );
-	}
+	$cols = "*";
 	
+    // $sql->sendResultInfoAsJson(json_encode($inData));
+	
+	$result = $sql->search($inData, "Contacts", $cols_request=$cols, $search_col="FirstName");
+	
+	$sql->sendSearchResult($result);
+	
+	$sql->close();
+	
+
 ?>

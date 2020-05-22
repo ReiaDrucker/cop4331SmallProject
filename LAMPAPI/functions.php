@@ -113,32 +113,52 @@
 			}
 		}
 
-		function search($req, $table_name="Contacts", $cols_request="ID, firstName, lastName", $search_col="firstName")
+		function search($req, $table_name="Contacts", $cols_request="ID, firstName, lastName", $search_col="FirstName")
 		{
 			// Generate an sql query to search a table
-			$sql = "SELECT $cols_request FROM $table_name WHERE $search_col like %" . $req["search"] . "% and UserID=" . $req["userId"];
+			$sql = "SELECT $cols_request FROM $table_name WHERE";
+			if($req["exact"] != "true")
+			{
+			    $sql .=  " $search_col like '%" . $req["search"] . "%'";
+			}
+			if($uid = $req["userID"] == true and $req["exact"] != "true")
+			{
+			    $sql .= "and UserID=" . $req["userID"];
+		    }
+		    if($req["exact"] == "true")
+		    {
+		        $sql .= " $search_col=" . "'" . $req["search"] . "'";
+		    }
 			// Run the search
 			$result = $this->conn->query($sql);
+// 			$this->sendResultInfoAsJson($sql);
 
-			$searchResults = "";
-			$searchCount = 0;
-			// Give an error if nothing was found
+			return $result;
+		}
+		
+		function sendSearchResult($result)
+		{
 			if($result->num_rows <= 0)
 			{
 				$this->returnWithError( "No Records Found" );
 			}
+		    
 			// Return the search results
 			else
 			{
+			    $i = 0;
+			    $searchResults = "{";
 				while($row = $result->fetch_assoc())
 				{
-					if( $searchCount > 0 )
+					if( $i > 0 )
 					{
 						$searchResults .= ",";
 					}
-					$searchCount++;
-					$searchResults .= '"' . $row["Name"] . '"';
+					$searchResults .= '"' . $i . '" : ' . json_encode($row);
+					$i++;
+				// 	$this->sendResultInfoAsJson(json_encode($row));
 				}
+				$searchResults .= "}";
 			}
 			$retValue = '{"results":[' . $searchResults . '],"error":""}';
 			$this->sendResultInfoAsJson( $retValue );
