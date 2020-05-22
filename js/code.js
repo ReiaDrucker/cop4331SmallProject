@@ -10,6 +10,10 @@ var darkModeToggle = true;
 var darkMode = '/css/darkMode.css';
 var lightMode = '/css/lightMode.css';
 
+// Editing / Deletion variables
+var idToEdit = "";
+var idToDelete = "";
+
 function doLogin()
 {
 	// Reset variables to clear past login attempts
@@ -314,6 +318,13 @@ function searchContacts()
 {
 	var srch = document.getElementById("searchText").value;
 	document.getElementById("ContactsSearchResult").innerHTML = "";
+	
+	// TODO - not 100% sure if this is necessary, I have it implemented to remove the old contact elements before the new ones are added
+	while (document.getElementById("ContactsList").hasChildNodes()) 
+	{
+    	document.getElementById("ContactsList").removeChild(document.getElementById("ContactsList").lastChild);
+	}
+	
 
 	var jsonPayload = '{"search" : "' + srch + '","userId" : ' + userId + '}';
 	var url = urlBase + '/SearchContacts.' + extension;
@@ -333,14 +344,16 @@ function searchContacts()
 				// go through array of contacts
 				for( var i=0; i<jsonObject.results.length; i++ )
 				{
-					// make new button for the collapsable component
+					// make new button for the collapsable component, and give it an ID ("#-coll")
 					var collButton = document.createElement("button");
 					collButton.className = "collapsible";
 					collButton.innerHTML = jsonObject.results[i].firstName + " " + jsonObject.results[i].lastName;
+					collButton.id = i + "-coll";
 					
-					// make new div for the content
+					// make new div for the content, and give it an ID ("#-content")
 					var contentDiv = document.createElement("div");
 					contentDiv.className = "content";
+					contentDiv.id = i + "-content";
 					
 					// create the <p> for the content div
 					var pronounP = document.createElement("p");
@@ -360,12 +373,22 @@ function searchContacts()
 					contentDiv.appendChild(addressP);
 					contentDiv.appendChild(cityStateZipP);
 					
-					// TODO - create edit and delete buttons
+					// create edit and delete buttons
+					var editButton = document.createElement("button");
+					editButton.type = "button";
+					editButton.class = "gotoEditButton";
+					editButton.onclick = "gotoEditContact(this);";
+					editButton.innerHTML = "Edit";
+					var deleteButton = document.createElement("button");
+					deleteButton.type = "button";
+					deleteButton.class = "gotoDeleteButton";
+					deleteButton.onclick = "gotoDeleteContact(this);";
+					deleteButton.innerHTML = "Delete";
 					
 					
-					
-					// TODO - add buttons to the content div
-					
+					// add buttons to the content div
+					contentDiv.appendChild(editButton);
+					contentDiv.appendChild(deleteButton);
 					
 					
 					// add collbutton and contentDiv to the contactsList
@@ -381,4 +404,32 @@ function searchContacts()
 		document.getElementById("ContactsSearchResult").innerHTML = err.message;
 	}
 
+}
+
+// TODO - will bring up the screen so that the contact can be edited
+function gotoEditContact(contact)
+{
+	replace('logoutButton', 'cancelAddContactButton');
+	replace('goToAddContactsButton', 'confirmEditButton');
+	replace('searchContactsDiv', 'addContactsDiv');
+	document.getElementById('userName').innerHTML = "Please edit your contact's information below";
+	
+	idToEdit = contact.parentNode.id;
+}
+// TODO - will actually commit the edit
+function commitEditContact()
+{
+	
+}
+
+
+// TODO - will bring up pop-up to confirm deletion
+function gotoDeleteContact(contact)
+{
+	
+}
+// TODO - will actually commit the delete
+function commitDeleteContact()
+{
+	
 }
