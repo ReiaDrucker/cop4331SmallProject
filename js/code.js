@@ -195,6 +195,7 @@ function goToSearchContacts()
 {
 	replace('cancelAddContactButton', 'logoutButton');
 	replace('addContactsButton', 'goToAddContactsButton');
+	replace('confirmEditButton', 'goToAddContactsButton');
 	replace('addContactsDiv', 'searchContactsDiv');
 	
 	document.getElementById('userName').innerHTML = "Welcome, " + firstName + " " + lastName + "!";
@@ -350,10 +351,11 @@ function searchContacts()
 					collButton.innerHTML = jsonObject.results[i].firstName + " " + jsonObject.results[i].lastName;
 					collButton.id = i + "-coll";
 					
-					// make new div for the content, and give it an ID ("#-content")
+					// TODO - use database ID of contact for ID instead of i
+					// make new div for the content, and give it an ID ("#")
 					var contentDiv = document.createElement("div");
 					contentDiv.className = "content";
-					contentDiv.id = i + "-content";
+					contentDiv.id = "" + i;
 					
 					// create the <p> for the content div
 					var pronounP = document.createElement("p");
@@ -409,17 +411,25 @@ function searchContacts()
 // TODO - will bring up the screen so that the contact can be edited
 function gotoEditContact(contact)
 {
+	// switch view
 	replace('logoutButton', 'cancelAddContactButton');
 	replace('goToAddContactsButton', 'confirmEditButton');
 	replace('searchContactsDiv', 'addContactsDiv');
 	document.getElementById('userName').innerHTML = "Please edit your contact's information below";
 	
+	// get id so that this specific contact can be accessed later
 	idToEdit = contact.parentNode.id;
+	
+	// TODO - put current contact info into the form for ease of access
+	
+	
+	
+	// After previous TODO, we just wait for user click of the confirmEditButton then we run commitEditContact()
 }
 // TODO - will actually commit the edit
 function commitEditContact()
 {
-	
+	// **TODO** - need ID of contact in DB to edit
 }
 
 
