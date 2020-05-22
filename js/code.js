@@ -41,6 +41,7 @@ function doLogin()
 
 		var jsonObject = JSON.parse( xhr.responseText );
 
+        userID = jsonObject.userID;
 		error = jsonObject.error;
 
         // If error is not empty
