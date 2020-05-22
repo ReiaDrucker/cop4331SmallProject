@@ -41,9 +41,10 @@ function doLogin()
 
 		var jsonObject = JSON.parse( xhr.responseText );
 
-		userId = jsonObject.id;
+		error = jsonObject.error;
 
-		if( userId < 1 )
+        // If error is not empty
+		if( error !== "" )
 		{
 			document.getElementById("loginResult").innerHTML = "User/Password combination incorrect";
 			return;
@@ -54,11 +55,12 @@ function doLogin()
 
 		saveCookie();
 
-		window.location.href = "contacts.html";
+        window.location.href = "contacts.html";
+		
 	}
 	catch(err)
 	{
-		//document.getElementById("loginResult").innerHTML = err.message;
+		document.getElementById("loginResult").innerHTML = err.message;
 	}
 
 }
@@ -105,7 +107,8 @@ function doSignup()
 
 		userId = jsonObject.id;
 
-		if( userId < 1 )
+		// If error is not empty
+		if( error !== "" )
 		{
 			document.getElementById("signupResult").innerHTML = "Sign Up Failed";
 			return;
@@ -173,7 +176,7 @@ function saveCookie()
 	var minutes = 20;
 	var date = new Date();
 	date.setTime(date.getTime()+(minutes*60*1000));
-	document.cookie = "firstName=" + firstName + ",lastName=" + lastName + ",userId=" + userId +  ",darkModeToggle=" + darkModeToggle +";expires=" + date.toGMTString();
+	document.cookie = "firstName=" + firstName + ",lastName=" + lastName + ",userId=" + userId + ";expires=" + date.toGMTString();
 }
 
 function readCookie()
@@ -196,10 +199,6 @@ function readCookie()
 		else if( tokens[0] == "userId" )
 		{
 			userId = parseInt( tokens[1].trim() );
-		}
-		else if( tokens[0] == "darkModeToggle" )
-		{
-			darkModeToggle = tokens[1];
 		}
 	}
 
