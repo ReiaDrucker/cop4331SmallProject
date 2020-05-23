@@ -516,13 +516,59 @@ function commitEditContact()
 }
 
 
-// TODO - will bring up pop-up to confirm deletion
+// will bring up pop-up to confirm deletion
 function gotoDeleteContact(contact)
 {
+	// get id of object to potentially delete
+	idToDelete = contact.parentNode.id;
 	
+	// get popup div and enable it
+	var popup = document.getElementById("popup");
+	popup.style.display = "block";
 }
-// TODO - will actually commit the delete
+
+// will actually commit the delete
 function commitDeleteContact()
 {
+	// use idToDelete
+	var jsonPayload = '{"ID" : "' + idToDelete + '}';
+
+
+
+	var url = urlBase + '/Delete.' + extension;
+
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try
+	{
+		xhr.onreadystatechange = function()
+		{
+			if (this.readyState == 4 && this.status == 200)
+			{
+				document.getElementById("userName").innerHTML = "Contact has been deleted";
+			}
+		};
+		xhr.send(jsonPayload);
+	}
+	catch(err)
+	{
+		document.getElementById("userName").innerHTML = err.message;
+	}
 	
+	// close popup
+	popup.style.display = "none";
+	
+	// get rid of idToDelete
+	idToDelete = "";
+}
+
+// close popup without deleting
+function cancelDeleteContact()
+{
+	// close popup on click of cancel button
+  	popup.style.display = "none";
+	
+	// get rid of idToDelete
+	idToDelete = "";
 }
