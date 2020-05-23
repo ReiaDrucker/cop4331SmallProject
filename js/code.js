@@ -462,7 +462,12 @@ function gotoEditContact(contact)
 // TODO - will actually commit the edit
 function commitEditContact()
 {
-	// **TODO** - need ID of contact in DB to edit
+	// commit the changes to the contact referenced by idToEdit
+	
+	
+	// go back to search contacts
+	// TODO - should we clear contacts list before returning?
+	goToSearchContacts();
 }
 
 
