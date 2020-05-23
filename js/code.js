@@ -500,7 +500,7 @@ function commitEditContact()
 		{
 			if (this.readyState == 4 && this.status == 200)
 			{
-				document.getElementById("ContactsAddResult").innerHTML = "Contacts has been updated";
+				document.getElementById("ContactsAddResult").innerHTML = "Contact has been updated";
 			}
 		};
 		xhr.send(jsonPayload);
@@ -523,7 +523,7 @@ function gotoDeleteContact(contact)
 	idToDelete = contact.parentNode.id;
 	
 	// get popup div and enable it
-	var popup = document.getElementById("popup");
+	var popup = document.getElementById("popupConfirmDeleteDiv");
 	popup.style.display = "block";
 }
 
@@ -557,6 +557,7 @@ function commitDeleteContact()
 	}
 	
 	// close popup
+	var popup = document.getElementById("popupConfirmDeleteDiv");
 	popup.style.display = "none";
 	
 	// get rid of idToDelete
@@ -567,6 +568,7 @@ function commitDeleteContact()
 function cancelDeleteContact()
 {
 	// close popup on click of cancel button
+	var popup = document.getElementById("popupConfirmDeleteDiv");
   	popup.style.display = "none";
 	
 	// get rid of idToDelete

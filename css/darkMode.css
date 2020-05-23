@@ -464,12 +464,13 @@ select{
   background-color: rgb(0,0,0);
   background-color: rgba(0,0,0,0.4);
 }
-.popupContent {
+#popupContent {
   background-color: #fefefe;
   margin: 15% auto;
   padding: 20px;
   border: 1px solid #888;
-  width: 80%;
+  width: 50%;
+  height: 10%;
   font-family: 'Ubuntu', sans-serif;
   font-size: 24px;
 }
@@ -481,7 +482,7 @@ select{
     border-radius: 25px;
     width: 10%;
     float: right;
-	margin-right: 5%;
+	margin-right: 10%;
 	margin-bottom: 1%;
     font-family: 'Ubuntu', sans-serif;
 }
@@ -496,11 +497,18 @@ select{
     border-radius: 25px;
     width: 10%;
 	float: left;
-	margin-left: 70%;
+	margin-left: 40%;
 	margin-bottom: 1%;
     font-family: 'Ubuntu', sans-serif;
 }
 #cancelDeleteButton:hover {
 	background-color: #00aaaa;
     color: #FFFFFF;
+}
+
+#confirmEditButton {
+	width: 20%;
+    margin-right: 10%;
+	margin-top: 1%;
+	float: right;
 }
