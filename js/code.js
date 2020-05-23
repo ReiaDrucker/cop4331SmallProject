@@ -307,6 +307,8 @@ function addContacts()
 			if (this.readyState == 4 && this.status == 200)
 			{
 				document.getElementById("ContactsAddResult").innerHTML = "Contacts has been added";
+				// go back to search after successfully adding
+				goToSearchContacts();
 			}
 		};
 		xhr.send(jsonPayload);
@@ -315,7 +317,6 @@ function addContacts()
 	{
 		document.getElementById("ContactsAddResult").innerHTML = err.message;
 	}
-
 }
 
 function searchContacts()
@@ -463,7 +464,51 @@ function gotoEditContact(contact)
 function commitEditContact()
 {
 	// commit the changes to the contact referenced by idToEdit
-	
+	var newContactsFirstName = document.getElementById("ContactsFirstNameText").value;
+	var newContactsLastName = document.getElementById("ContactsLastNameText").value;
+	var newContactsEmail = document.getElementById("ContactsEmailText").value;
+	var newContactsPhone = document.getElementById("ContactsPhoneText").value;
+	var newContactsAddress = document.getElementById("ContactsAddressText").value;
+	var newContactsCity = document.getElementById("ContactsCityText").value;
+	var newContactsState = document.getElementById("ContactsStateText").value;
+	var newContactsZIPCode = document.getElementById("ContactsZIPCodeText").value;
+	var newContactsPronouns = document.getElementById("ContactsPronounsText").value;
+
+	document.getElementById("ContactsAddResult").innerHTML = "";
+
+	var jsonPayload = '{"FirstName" : "' + newContactsFirstName +
+						'", "LastName" : ' + newContactsLastName +
+						'", "Email" : ' + newContactsEmail +
+						'", "Phone" : ' + newContactsPhone +
+						'", "Address" : ' + newContactsAddress +
+						'", "City" : ' + newContactsCity +
+						'", "State" : ' + newContactsState +
+						'", "ZIP Code" : ' + newContactsZIPCode +
+						'", "Pronouns" : ' + newContactsPronouns +
+						'", "ID" : ' + idToEdit + '}';
+
+
+
+	var url = urlBase + '/updateContact.' + extension;
+
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try
+	{
+		xhr.onreadystatechange = function()
+		{
+			if (this.readyState == 4 && this.status == 200)
+			{
+				document.getElementById("ContactsAddResult").innerHTML = "Contacts has been updated";
+			}
+		};
+		xhr.send(jsonPayload);
+	}
+	catch(err)
+	{
+		document.getElementById("ContactsAddResult").innerHTML = err.message;
+	}
 	
 	// go back to search contacts
 	// TODO - should we clear contacts list before returning?
