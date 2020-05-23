@@ -129,6 +129,10 @@
 		    {
 		        $sql .= " $search_col=" . "'" . $req["search"] . "'";
 		    }
+			if($req["ID"] != "" and $req["exact"] != "true")
+		    {
+		        	$sql = "SELECT $cols_request FROM $table_name WHERE ID=" . $req["ID"];
+		    }
 			// Run the search
 			$result = $this->conn->query($sql);
 // 			$this->sendResultInfoAsJson($sql);
