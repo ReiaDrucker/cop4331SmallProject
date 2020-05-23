@@ -198,6 +198,9 @@ function goToSearchContacts()
 	replace('confirmEditButton', 'goToAddContactsButton');
 	replace('addContactsDiv', 'searchContactsDiv');
 	
+	// if edit was cancelled
+	idToEdit = "";
+	
 	document.getElementById('userName').innerHTML = "Welcome, " + firstName + " " + lastName + "!";
 }
 
@@ -345,17 +348,16 @@ function searchContacts()
 				// go through array of contacts
 				for( var i=0; i<jsonObject.results.length; i++ )
 				{
-					// make new button for the collapsable component, and give it an ID ("#-coll")
+					// make new button for the collapsable component, and give it an ID that corresponds to the ID # of the contact in the database ("#-coll")
 					var collButton = document.createElement("button");
 					collButton.className = "collapsible";
 					collButton.innerHTML = jsonObject.results[i].firstName + " " + jsonObject.results[i].lastName;
-					collButton.id = i + "-coll";
+					collButton.id = jsonObject.results[i].id + "-coll";
 					
-					// TODO - use database ID of contact for ID instead of i
-					// make new div for the content, and give it an ID ("#")
+					// make new div for the content, and give it an ID the corresponds to the contact's ID in the database ("#")
 					var contentDiv = document.createElement("div");
 					contentDiv.className = "content";
-					contentDiv.id = "" + i;
+					contentDiv.id = "" + jsonObject.results[i].id;
 					
 					// create the <p> for the content div
 					var pronounP = document.createElement("p");
@@ -408,7 +410,7 @@ function searchContacts()
 
 }
 
-// TODO - will bring up the screen so that the contact can be edited
+// will bring up the screen so that the contact can be edited, contact is a reference to the specific edit button that was clicked
 function gotoEditContact(contact)
 {
 	// switch view
@@ -420,12 +422,43 @@ function gotoEditContact(contact)
 	// get id so that this specific contact can be accessed later
 	idToEdit = contact.parentNode.id;
 	
-	// TODO - put current contact info into the form for ease of access
+	// search by id
+	var jsonPayload = '{"search" : "' + idToEdit + '","userId" : ' + userId + '}';
+	var url = urlBase + '/SearchContacts.' + extension;
+
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 	
-	
-	
-	// After previous TODO, we just wait for user click of the confirmEditButton then we run commitEditContact()
+	try
+	{
+		xhr.onreadystatechange = function()
+		{
+			if (this.readyState == 4 && this.status == 200)
+				{
+					var jsonObject = JSON.parse( xhr.responseText );
+					
+					// put current contact info into the form for ease of access
+					document.getElementById("ContactsFirstNameText").value = jsonObject.result[0].firstName;
+					document.getElementById("ContactsLastNameText").value = jsonObject.result[0].lastName;
+					document.getElementById("ContactsEmailText").value = jsonObject.result[0].email;
+					document.getElementById("ContactsPhoneText").value = jsonObject.result[0].phone;
+					document.getElementById("ContactsAddressText").value = jsonObject.result[0].address;
+					document.getElementById("ContactsCityText").value = jsonObject.result[0].city;
+					document.getElementById("ContactsStateText").value = jsonObject.result[0].state;
+					document.getElementById("ContactsZIPCodeText").value = jsonObject.result[0].ZIP;
+					document.getElementById("ContactsPronounsText").value = jsonObject.result[0].pronouns;	
+				}
+		};
+		xhr.send(jsonPayload);	
+	}
+	catch(err)
+	{
+		document.getElementById("userName").innerHTML = err.message;
+	}
+	// this method is done, now we just wait for user click of the confirmEditButton then we run commitEditContact()
 }
+
 // TODO - will actually commit the edit
 function commitEditContact()
 {
