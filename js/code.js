@@ -4,6 +4,7 @@ var extension = 'php';
 var userID = 0;
 var firstName = "";
 var lastName = "";
+var error = "";
 
 // Mode variables
 var darkModeToggle = true;
@@ -20,6 +21,7 @@ function doLogin()
 	userID = 0;
 	firstName = "";
 	lastName = "";
+	error = "";
 
 	// Grab the data we need from the HTML fields
 	var login = document.getElementById("loginName").value;
@@ -77,6 +79,7 @@ function doSignup()
 	userID = 0;
 	firstName = "";
 	lastName = "";
+	error = "";
 
 	firstName = document.getElementById("signupFirstName").value;
 	lastName = document.getElementById("signupLastName").value;
@@ -126,6 +129,7 @@ function doSignup()
 		var jsonObject = JSON.parse( xhr.responseText );
 
 		userID = jsonObject.userID;
+		error = jsonObject.error;
 
 		// If error is not empty
 		if( error !== "" )

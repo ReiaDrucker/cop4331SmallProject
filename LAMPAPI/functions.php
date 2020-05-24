@@ -82,7 +82,7 @@
 			// Insert the data and return an error if it doesn't work
 			if( $result = $this->conn->query($sql) != TRUE )
 			{
-				$this->returnWithError( $this->conn->error );
+				$this->returnWithError( "No Records Could Be Added" );
 			}
 		}
 
@@ -158,14 +158,30 @@
 					{
 						$searchResults .= ",";
 					}
-					$searchResults .= '"' . $i . '" : ' . json_encode($row);
+				// 	$trow =json_encode($row);
+					$search = array(
+					    "ID" => $row["ID"],
+        				"firstName" => $row["FirstName"],
+        				"lastName" => $row["LastName"],
+        				"email" => $row["Email"],
+        				"phone" => $row["Phone"],
+        				"date created" => $row["Date_Created"],
+        				"address" => $row["Address"],
+        				"city" => $row["City"],
+        				"state" => $row["State"],
+        				"zip code" => $row["ZIP_Code"],
+        				"pronouns" => trow["Pronouns"],
+        				"userID" => $row["UserID"]
+					    );
+					$searchResults .= '"' . $i . '" : ' . json_encode($search);
 					$i++;
 				// 	$this->sendResultInfoAsJson(json_encode($row));
 				}
 				$searchResults .= "}";
+				$retValue = '{"results":[' . $searchResults . '],"error":""}';
+			    $this->sendResultInfoAsJson( $retValue );
 			}
-			$retValue = '{"results":[' . $searchResults . '],"error":""}';
-			$this->sendResultInfoAsJson( $retValue );
+			
 		}
 		
 
