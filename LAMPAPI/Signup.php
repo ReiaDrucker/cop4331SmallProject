@@ -20,7 +20,7 @@
     	
     	$result = $sql->search($search, "Users", $cols_request="*", $search_col="Login");
     	
-    	$retValue = '{"ID":"' . $result->fetch_assoc()["ID"] . '","firstName":"' . $inData["firstName"] . '","lastName":"' . $inData["lastName"] . '","error":""}';
+    	$retValue = '{"userID":"' . $result->fetch_assoc()["ID"] . '","firstName":"' . $inData["firstName"] . '","lastName":"' . $inData["lastName"] . '","error":""}';
     	
     	$sql->sendResultInfoAsJson($retValue);
         $sql->close();
