@@ -71,7 +71,7 @@ function doLogin()
 	document.getElementById('userName').innerHTML = "Welcome, " + firstName + " " + lastName + "!";
 }
 
-// TODO - will add new user to the database and sign them into their new account (so that they don't login after signing up)
+// will add new user to the database and sign them into their new account (so that they don't login after signing up)
 function doSignup()
 {
 	userId = 0;
@@ -460,7 +460,7 @@ function gotoEditContact(contact)
 	// this method is done, now we just wait for user click of the confirmEditButton then we run commitEditContact()
 }
 
-// TODO - will actually commit the edit
+// will actually commit the edit
 function commitEditContact()
 {
 	// commit the changes to the contact referenced by idToEdit
@@ -510,8 +510,10 @@ function commitEditContact()
 		document.getElementById("ContactsAddResult").innerHTML = err.message;
 	}
 	
+	// redo search but, now that the selected element is deleted
+	searchContacts();
+	
 	// go back to search contacts
-	// TODO - should we clear contacts list before returning?
 	goToSearchContacts();
 }
 
@@ -562,6 +564,9 @@ function commitDeleteContact()
 	
 	// get rid of idToDelete
 	idToDelete = "";
+	
+	// redo search but, now that the selected element is deleted
+	searchContacts();
 }
 
 // close popup without deleting
