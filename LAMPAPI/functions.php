@@ -104,7 +104,7 @@
 			if($result->num_rows > 0)
 			{
 				$row = $result->fetch_assoc();
-				$retValue = '{"id":' . $row["ID"] . ',"firstName":"' . $row["FirstName"] . '","lastName":"' . $row["LastName"] . '","error":""}';
+				$retValue = '{"userID":' . $row["ID"] . ',"firstName":"' . $row["FirstName"] . '","lastName":"' . $row["LastName"] . '","error":""}';
 				$this->sendResultInfoAsJson($retValue);
 			}
 			else
@@ -129,7 +129,7 @@
 		    {
 		        $sql .= " $search_col=" . "'" . $req["search"] . "'";
 		    }
-			if($req["ID"] != "" and $req["exact"] != "true")
+		    if($req["ID"] != "" and $req["exact"] != "true")
 		    {
 		        	$sql = "SELECT $cols_request FROM $table_name WHERE ID=" . $req["ID"];
 		    }
