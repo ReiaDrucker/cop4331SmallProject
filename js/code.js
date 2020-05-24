@@ -440,15 +440,15 @@ function gotoEditContact(contact)
 					var jsonObject = JSON.parse( xhr.responseText );
 					
 					// put current contact info into the form for ease of access
-					document.getElementById("ContactsFirstNameText").value = jsonObject.result[0].firstName;
-					document.getElementById("ContactsLastNameText").value = jsonObject.result[0].lastName;
-					document.getElementById("ContactsEmailText").value = jsonObject.result[0].email;
-					document.getElementById("ContactsPhoneText").value = jsonObject.result[0].phone;
-					document.getElementById("ContactsAddressText").value = jsonObject.result[0].address;
-					document.getElementById("ContactsCityText").value = jsonObject.result[0].city;
-					document.getElementById("ContactsStateText").value = jsonObject.result[0].state;
-					document.getElementById("ContactsZIPCodeText").value = jsonObject.result[0].ZIP;
-					document.getElementById("ContactsPronounsText").value = jsonObject.result[0].pronouns;	
+					document.getElementById("ContactsFirstNameText").value = jsonObject.results[0].firstName;
+					document.getElementById("ContactsLastNameText").value = jsonObject.results[0].lastName;
+					document.getElementById("ContactsEmailText").value = jsonObject.results[0].email;
+					document.getElementById("ContactsPhoneText").value = jsonObject.results[0].phone;
+					document.getElementById("ContactsAddressText").value = jsonObject.results[0].address;
+					document.getElementById("ContactsCityText").value = jsonObject.results[0].city;
+					document.getElementById("ContactsStateText").value = jsonObject.results[0].state;
+					document.getElementById("ContactsZIPCodeText").value = jsonObject.results[0].ZIP;
+					document.getElementById("ContactsPronounsText").value = jsonObject.results[0].pronouns;	
 				}
 		};
 		xhr.send(jsonPayload);	
