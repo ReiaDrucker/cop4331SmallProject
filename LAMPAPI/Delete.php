@@ -9,7 +9,7 @@
 	$sql->connect();
 	
 	
-	$sql->delete($inData["Id"]);
+	$sql->delete($inData["ID"]);
 	$sql->close();
 
 
