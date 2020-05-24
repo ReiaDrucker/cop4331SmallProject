@@ -145,7 +145,7 @@ Signup.php:
 		}
 	output:
 		{
-		"ID":"99",
+		"userID":"99",
 		"firstName":"Michael",
 		"lastName":"Rogatinsk",
 		"error":""
