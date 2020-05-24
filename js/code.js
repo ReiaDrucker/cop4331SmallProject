@@ -1,7 +1,7 @@
 var urlBase = 'https://COP4331.xyz/LAMPAPI';
 var extension = 'php';
 
-var userId = 0;
+var userID = 0;
 var firstName = "";
 var lastName = "";
 
@@ -17,7 +17,7 @@ var idToDelete = "";
 function doLogin()
 {
 	// Reset variables to clear past login attempts
-	userId = 0;
+	userID = 0;
 	firstName = "";
 	lastName = "";
 
@@ -74,7 +74,7 @@ function doLogin()
 // will add new user to the database and sign them into their new account (so that they don't login after signing up)
 function doSignup()
 {
-	userId = 0;
+	userID = 0;
 	firstName = "";
 	lastName = "";
 
@@ -125,7 +125,7 @@ function doSignup()
 
 		var jsonObject = JSON.parse( xhr.responseText );
 
-		userId = jsonObject.id;
+		userID = jsonObject.userID;
 
 		// If error is not empty
 		if( error !== "" )
@@ -205,7 +205,8 @@ function goToSearchContacts()
 	// if edit was cancelled
 	idToEdit = "";
 	
-	document.getElementById('userName').innerHTML = "Welcome, " + firstName + " " + lastName + "!";
+	// TODO - might add back in later
+	//document.getElementById('userName').innerHTML = "Welcome, " + firstName + " " + lastName + "!";
 }
 
 
@@ -221,12 +222,12 @@ function saveCookie()
 	var minutes = 20;
 	var date = new Date();
 	date.setTime(date.getTime()+(minutes*60*1000));
-	document.cookie = "firstName=" + firstName + ",lastName=" + lastName + ",userId=" + userId + ";expires=" + date.toGMTString();
+	document.cookie = "firstName=" + firstName + ",lastName=" + lastName + ",userID=" + userID + ";expires=" + date.toGMTString();
 }
 
 function readCookie()
 {
-	userId = -1;
+	userID = -1;
 	var data = document.cookie;
 	var splits = data.split(",");
 	for(var i = 0; i < splits.length; i++)
@@ -241,13 +242,13 @@ function readCookie()
 		{
 			lastName = tokens[1];
 		}
-		else if( tokens[0] == "userId" )
+		else if( tokens[0] == "userID" )
 		{
-			userId = parseInt( tokens[1].trim() );
+			userID = parseInt( tokens[1].trim() );
 		}
 	}
 
-	if( userId < 0 )
+	if( userID < 0 )
 	{
 		window.location.href = "index.html";
 	}
@@ -259,7 +260,7 @@ function readCookie()
 
 function doLogout()
 {
-	userId = 0;
+	userID = 0;
 	firstName = "";
 	lastName = "";
 	document.cookie = "firstName= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
@@ -282,16 +283,19 @@ function addContacts()
 
 
 	document.getElementById("ContactsAddResult").innerHTML = "";
+	
+	// Need UserID to be set here so that we don't send it as 0
 
-	var jsonPayload = '{"FirstName" : "' + newContactsFirstName +
-						'", "LastName" : ' + newContactsLastName +
-						'", "Email" : ' + newContactsEmail +
-						'", "Phone" : ' + newContactsPhone +
-						'", "Address" : ' + newContactsAddress +
-						'", "City" : ' + newContactsCity +
-						'", "State" : ' + newContactsState +
-						'", "ZIP Code" : ' + newContactsZIPCode +
-						'", "Pronouns" : ' + newContactsPronouns + '}';
+	var jsonPayload = '{"firstName" : "' + newContactsFirstName +
+						'", "lastName" : "' + newContactsLastName +
+						'", "email" : "' + newContactsEmail +
+						'", "phone" : "' + newContactsPhone +
+						'", "address" : "' + newContactsAddress +
+						'", "city" : "' + newContactsCity +
+						'", "state" : "' + newContactsState +
+						'", "zip code" : "' + newContactsZIPCode +
+						'", "pronouns" : "' + newContactsPronouns +
+						'", "userID" : "' + userID +'"}';
 
 
 
@@ -306,7 +310,12 @@ function addContacts()
 		{
 			if (this.readyState == 4 && this.status == 200)
 			{
-				document.getElementById("ContactsAddResult").innerHTML = "Contacts has been added";
+				document.getElementById("userName").innerHTML = "Contact has been added";
+				
+						
+				// DEBUG
+				document.getElementById("userName").innerHTML = "first name added: " + newContactsFirstName + " last name added: " + newContactsLastName;
+				
 				// go back to search after successfully adding
 				goToSearchContacts();
 			}
@@ -315,7 +324,7 @@ function addContacts()
 	}
 	catch(err)
 	{
-		document.getElementById("ContactsAddResult").innerHTML = err.message;
+		document.getElementById("userName").innerHTML = err.message;
 	}
 }
 
@@ -325,13 +334,13 @@ function searchContacts()
 	document.getElementById("ContactsSearchResult").innerHTML = "";
 	
 	// TODO - not 100% sure if this is necessary, I have it implemented to remove the old contact elements before the new ones are added
-	while (document.getElementById("ContactsList").hasChildNodes()) 
-	{
-    	document.getElementById("ContactsList").removeChild(document.getElementById("ContactsList").lastChild);
-	}
+	//while (document.getElementById("ContactsList").hasChildNodes()) 
+	//{
+    //	document.getElementById("ContactsList").removeChild(document.getElementById("ContactsList").lastChild);
+	//}
 	
 
-	var jsonPayload = '{"search" : "' + srch + '","userId" : ' + userId + '}';
+	var jsonPayload = '{"search" : "' + srch + '","userID" : ' + userID + '}';
 	var url = urlBase + '/SearchContacts.' + extension;
 
 	var xhr = new XMLHttpRequest();
@@ -343,17 +352,27 @@ function searchContacts()
 		{
 			if (this.readyState == 4 && this.status == 200)
 			{
-				document.getElementById("ContactsSearchResult").innerHTML = "Contact(s) has been retrieved";
+				document.getElementById("userName").innerHTML = "Contact(s) has been retrieved";
 				var jsonObject = JSON.parse( xhr.responseText );
 
+				// DEBUG
+				document.getElementById("userName").innerHTML = "number of contacts found = " + jsonObject.results.length;
+				
+				
 				// go through array of contacts
 				for( var i=0; i<jsonObject.results.length; i++ )
 				{
+					// DEBUG
+					document.getElementById("userName").innerHTML = "Started loop: firstname = " + jsonObject.results[i].firstName;
+					
 					// make new button for the collapsable component, and give it an ID that corresponds to the ID # of the contact in the database ("#-coll")
 					var collButton = document.createElement("button");
 					collButton.className = "collapsible";
 					collButton.innerHTML = jsonObject.results[i].firstName + " " + jsonObject.results[i].lastName;
 					collButton.id = jsonObject.results[i].id + "-coll";
+					
+					// DEBUG
+					document.getElementById("userName").innerHTML = "firstname = " + jsonObject.results[i].firstName;
 					
 					// make new div for the content, and give it an ID the corresponds to the contact's ID in the database ("#")
 					var contentDiv = document.createElement("div");
@@ -406,7 +425,7 @@ function searchContacts()
 	}
 	catch(err)
 	{
-		document.getElementById("ContactsSearchResult").innerHTML = err.message;
+		document.getElementById("userName").innerHTML = err.message;
 	}
 
 }
@@ -424,7 +443,7 @@ function gotoEditContact(contact)
 	idToEdit = contact.parentNode.id;
 	
 	// search by id
-	var jsonPayload = '{"search" : "' + idToEdit + '","userId" : ' + userId + '}';
+	var jsonPayload = '{"search" : "' + idToEdit + '","userID" : ' + userID + '}';
 	var url = urlBase + '/SearchContacts.' + extension;
 
 	var xhr = new XMLHttpRequest();
@@ -500,14 +519,14 @@ function commitEditContact()
 		{
 			if (this.readyState == 4 && this.status == 200)
 			{
-				document.getElementById("ContactsAddResult").innerHTML = "Contact has been updated";
+				document.getElementById("userName").innerHTML = "Contact has been updated";
 			}
 		};
 		xhr.send(jsonPayload);
 	}
 	catch(err)
 	{
-		document.getElementById("ContactsAddResult").innerHTML = err.message;
+		document.getElementById("userName").innerHTML = err.message;
 	}
 	
 	// redo search but, now that the selected element is deleted
