@@ -11,15 +11,20 @@
         <!-- <button type="button" id="styleButton" class="buttons" onclick="changeStyle();"> Light Mode </button> -->
         <a class="active" href="./index.html" id="home">Home</a>
         <a id="about" href="./html/about.html">About</a>
-        <a id="modeDisplay" onclick="changeStyle(0);">Light Mode</a>
-
+        <a id="modeDisplay" onclick="changeStyle(0);saveStyle();">Light Mode</a>
     </div>
     <!-- End of Navigation Bar -->
-
     <title>Contact Manager</title>
     <script type="text/javascript" src="js/md5.js"></script>
     <script type="text/javascript" src="js/code.js"></script>
-
+    <script type="text/javascript" src="js/theme.js"></script>
+    <script>
+        readStyle();
+        if (mode)
+        {
+            changeStyle(0);
+        }
+    </script>
 </head>
 <body>
 
@@ -47,6 +52,5 @@
 			<span id="signupResult"></span>
 		</div>
   </div>
-
 </body>
 </html>
