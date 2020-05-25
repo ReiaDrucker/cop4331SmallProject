@@ -4,6 +4,7 @@ var extension = 'php';
 var userID = 0;
 var firstName = "";
 var lastName = "";
+var error = "";
 
 // Mode variables
 var darkModeToggle = true;
@@ -20,6 +21,7 @@ function doLogin()
 	userID = 0;
 	firstName = "";
 	lastName = "";
+	error = "";
 
 	// Grab the data we need from the HTML fields
 	var login = document.getElementById("loginName").value;
@@ -77,6 +79,7 @@ function doSignup()
 	userID = 0;
 	firstName = "";
 	lastName = "";
+	error = "";
 
 	firstName = document.getElementById("signupFirstName").value;
 	lastName = document.getElementById("signupLastName").value;
@@ -126,6 +129,7 @@ function doSignup()
 		var jsonObject = JSON.parse( xhr.responseText );
 
 		userID = jsonObject.userID;
+		error = jsonObject.error;
 
 		// If error is not empty
 		if( error !== "" )
@@ -334,10 +338,10 @@ function searchContacts()
 	document.getElementById("ContactsSearchResult").innerHTML = "";
 	
 	// TODO - not 100% sure if this is necessary, I have it implemented to remove the old contact elements before the new ones are added
-	//while (document.getElementById("ContactsList").hasChildNodes()) 
-	//{
-    //	document.getElementById("ContactsList").removeChild(document.getElementById("ContactsList").lastChild);
-	//}
+	while (document.getElementById("ContactsList").hasChildNodes()) 
+	{
+    	document.getElementById("ContactsList").removeChild(document.getElementById("ContactsList").lastChild);
+	}
 	
 
 	var jsonPayload = '{"search" : "' + srch + '","userID" : ' + userID + '}';
@@ -362,22 +366,37 @@ function searchContacts()
 				// go through array of contacts
 				for( var i=0; i<jsonObject.results.length; i++ )
 				{
+					
+					var ID = jsonObject.results[i].ID;
+					var firstName = jsonObject.results[i].firstName;
+					var lastName = jsonObject.results[i].lastName;
+					var pronouns = jsonObject.results[i].pronouns;
+					var email = jsonObject.results[i].email;
+					var phone = jsonObject.results[i].phone;
+					var address = jsonObject.results[i].address;
+					var city = jsonObject.results[i].city;
+					var state = jsonObject.results[i].state;
+					var zipCode = jsonObject.results[i]["zip code"];
+					
+					
+					
+					
 					// DEBUG
-					document.getElementById("userName").innerHTML = "Started loop: firstname = " + jsonObject.results[i].firstName;
+					document.getElementById("userName").innerHTML = "Started loop: firstname = " + firstName;
 					
 					// make new button for the collapsable component, and give it an ID that corresponds to the ID # of the contact in the database ("#-coll")
 					var collButton = document.createElement("button");
 					collButton.className = "collapsible";
-					collButton.innerHTML = jsonObject.results[i].firstName + " " + jsonObject.results[i].lastName;
-					collButton.id = jsonObject.results[i].id + "-coll";
+					collButton.innerHTML = firstName + " " + lastName;
+					collButton.id = ID + "-coll";
 					
 					// DEBUG
-					document.getElementById("userName").innerHTML = "firstname = " + jsonObject.results[i].firstName;
+					document.getElementById("userName").innerHTML = "firstname = " + firstName;
 					
 					// make new div for the content, and give it an ID the corresponds to the contact's ID in the database ("#")
 					var contentDiv = document.createElement("div");
 					contentDiv.className = "content";
-					contentDiv.id = "" + jsonObject.results[i].id;
+					contentDiv.id = "" + ID;
 					
 					// create the <p> for the content div
 					var pronounP = document.createElement("p");
@@ -386,10 +405,10 @@ function searchContacts()
 					var cityStateZipP = document.createElement("p");
 					
 					// fill <p>s with content from json
-					pronounP.innerHTML = "Pronouns: " + jsonObject.results[i].pronouns;
-					emailPhoneP.innerHTML = "Email: " + jsonObject.results[i].email + "   Phone: " + jsonObject.results[i].phone;
-					addressP.innerHTML = "Address: " + jsonObject.results[i].address;
-					cityStateZipP.innerHTML = jsonObject.results[i].city + ", " + jsonObject.results[i].state + " " + jsonObject.results[i].ZIP;
+					pronounP.innerHTML = "Pronouns: " + pronouns;
+					emailPhoneP.innerHTML = "Email: " + email + "   Phone: " + phone;
+					addressP.innerHTML = "Address: " + address;
+					cityStateZipP.innerHTML = city + ", " + state + " " + zipCode;
 					
 					// add the <p>s to the content div
 					contentDiv.appendChild(pronounP);
@@ -466,7 +485,7 @@ function gotoEditContact(contact)
 					document.getElementById("ContactsAddressText").value = jsonObject.results[0].address;
 					document.getElementById("ContactsCityText").value = jsonObject.results[0].city;
 					document.getElementById("ContactsStateText").value = jsonObject.results[0].state;
-					document.getElementById("ContactsZIPCodeText").value = jsonObject.results[0].ZIP;
+					document.getElementById("ContactsZIPCodeText").value = jsonObject.results[0]["zip code"];
 					document.getElementById("ContactsPronounsText").value = jsonObject.results[0].pronouns;	
 				}
 		};
