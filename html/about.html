@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <head>
     <!-- NOTE: To access anything you have to travel up one directory -->
@@ -20,32 +21,39 @@
     <title>Contact Manager</title>
     <script type="text/javascript" src="../js/md5.js"></script>
     <script type="text/javascript" src="../js/code.js"></script>
-
+    <script type="text/javascript" src="../js/theme.js"></script>
+    <script>
+        readStyle();
+        console.log('ran');
+        if (mode)
+        {
+            changeStyle(1);
+        }
+    </script>
 </head>
 <body>
 
     <h1 id="title">Contact Manager</h1>
     <div id="Creators">
-        <h2> Creators</h2>
-        	<h3>Front end</h3>
-			<p1>Mary McIntosh<br></pl>
-			<pl>Jaime Alejandro Bohorquez Rodriguez<br></pl>
-			<pl>Jaron Wilson<br></pl>
-        	<h3>Back end</h3>
-			<pl>Reia Drucker<br></pl>
-			<pl>Michael Rogantinsky<br></pl>
-			
+        <h1> Creators</h1>
+        	<h2>Front end</h2>
+			<h4>Mary McIntosh</h4>
+			<h4>Jaime Bohorquez<br></h4>
+			<h4>Jaron Wilson<br></h4>
+        	<h2>Back end</h2>
+			<h4>Reia Drucker<br></h4>
+			<h4>Michael Rogantinsky</h4>
+
     </div>
 
 
     <div id ="Class">
-	<p1> <br>For COP 4331, Summer 2020 </p1>
+        <h2>For COP 4331, Summer 2020</h2>
     </div>
 
-    <!-- <div id="outer"> -->
-        <div id="LAMP">
-            <img src="../images/lamp.png"/>
-        </div>
-    <!-- </div> -->
+    <div id="LAMP">
+        <img src="../images/lamp.png"/>
+    </div>
+
 </body>
 </html>
