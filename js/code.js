@@ -197,6 +197,17 @@ function goToAddContacts()
 	replace('searchContactsDiv', 'addContactsDiv');
 	
 	document.getElementById('userName').innerHTML = "Please add your contact's information below";
+	
+	// clear out form
+	document.getElementById("ContactsFirstNameText").value = "";
+	document.getElementById("ContactsLastNameText").value = "";
+	document.getElementById("ContactsEmailText").value = "";
+	document.getElementById("ContactsPhoneText").value = "";
+	document.getElementById("ContactsAddressText").value = "";
+	document.getElementById("ContactsCityText").value = "";
+	document.getElementById("ContactsStateText").value = "";
+	document.getElementById("ContactsZIPCodeText").value = "";
+	document.getElementById("ContactsPronounsText").value = "";
 }
 
 function goToSearchContacts()
@@ -320,6 +331,9 @@ function addContacts()
 	{
 		document.getElementById("userName").innerHTML = err.message;
 	}
+	
+	// do search contacts again so that the new contact appears if it should be in the search
+	searchContacts();
 }
 
 function searchContacts()
@@ -449,7 +463,7 @@ function gotoEditContact(contact)
 	idToEdit = contact.parentNode.id;
 	
 	// search by id
-	var jsonPayload = '{"search" : "' + idToEdit + '","userID" : ' + userID + '}';
+	var jsonPayload = '{"ID" : "' + idToEdit + '"}';
 	var url = urlBase + '/SearchContacts.' + extension;
 
 	var xhr = new XMLHttpRequest();
@@ -458,25 +472,35 @@ function gotoEditContact(contact)
 	
 	try
 	{
-		xhr.onreadystatechange = function()
-		{
-			if (this.readyState == 4 && this.status == 200)
-				{
-					var jsonObject = JSON.parse( xhr.responseText );
+	    // Send the Payload
+        xhr.send(jsonPayload);
+    				
+    	var jsonObject = JSON.parse( xhr.responseText );
+	    
+		var jsonObject = JSON.parse( xhr.responseText );
 					
-					// put current contact info into the form for ease of access
-					document.getElementById("ContactsFirstNameText").value = jsonObject.results[0].firstName;
-					document.getElementById("ContactsLastNameText").value = jsonObject.results[0].lastName;
-					document.getElementById("ContactsEmailText").value = jsonObject.results[0].email;
-					document.getElementById("ContactsPhoneText").value = jsonObject.results[0].phone;
-					document.getElementById("ContactsAddressText").value = jsonObject.results[0].address;
-					document.getElementById("ContactsCityText").value = jsonObject.results[0].city;
-					document.getElementById("ContactsStateText").value = jsonObject.results[0].state;
-					document.getElementById("ContactsZIPCodeText").value = jsonObject.results[0].ZIP;
-					document.getElementById("ContactsPronounsText").value = jsonObject.results[0].pronouns;	
-				}
-		};
-		xhr.send(jsonPayload);	
+		// contact vars
+		var firstName = jsonObject.results[0].firstName;
+		var lastName = jsonObject.results[0].lastName;
+		var pronouns = jsonObject.results[0].pronouns;
+		var email = jsonObject.results[0].email;
+		var phone = jsonObject.results[0].phone;
+		var address = jsonObject.results[0].address;
+		var city = jsonObject.results[0].city;
+		var state = jsonObject.results[0].state;
+		var zipCode = jsonObject.results[0]["zip code"];
+					
+					
+	    // put current contact info into the form for ease of access
+		document.getElementById("ContactsFirstNameText").value = firstName;
+		document.getElementById("ContactsLastNameText").value = lastName;
+		document.getElementById("ContactsEmailText").value = email;
+		document.getElementById("ContactsPhoneText").value = phone;
+		document.getElementById("ContactsAddressText").value = address;
+		document.getElementById("ContactsCityText").value = city;
+		document.getElementById("ContactsStateText").value = state;
+		document.getElementById("ContactsZIPCodeText").value = zipCode;
+		document.getElementById("ContactsPronounsText").value = pronouns;
 	}
 	catch(err)
 	{
@@ -501,18 +525,17 @@ function commitEditContact()
 
 	document.getElementById("ContactsAddResult").innerHTML = "";
 
-	var jsonPayload = '{"FirstName" : "' + newContactsFirstName +
-						'", "LastName" : ' + newContactsLastName +
-						'", "Email" : ' + newContactsEmail +
-						'", "Phone" : ' + newContactsPhone +
-						'", "Address" : ' + newContactsAddress +
-						'", "City" : ' + newContactsCity +
-						'", "State" : ' + newContactsState +
-						'", "ZIP Code" : ' + newContactsZIPCode +
-						'", "Pronouns" : ' + newContactsPronouns +
-						'", "ID" : ' + idToEdit + '}';
-
-
+    // Create payload to send to server
+	var jsonPayload = '{"firstName" : "' + newContactsFirstName +
+						'", "lastName" : "' + newContactsLastName +
+						'", "email" : "' + newContactsEmail +
+						'", "phone" : "' + newContactsPhone +
+						'", "address" : "' + newContactsAddress +
+						'", "city" : "' + newContactsCity +
+						'", "state" : "' + newContactsState +
+						'", "zip code" : "' + newContactsZIPCode +
+						'", "pronouns" : "' + newContactsPronouns +
+						'", "ID" : "' + idToEdit +'"}';
 
 	var url = urlBase + '/updateContact.' + extension;
 
@@ -521,25 +544,20 @@ function commitEditContact()
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 	try
 	{
-		xhr.onreadystatechange = function()
-		{
-			if (this.readyState == 4 && this.status == 200)
-			{
-				document.getElementById("userName").innerHTML = "Contact has been updated";
-			}
-		};
-		xhr.send(jsonPayload);
+	    xhr.send(jsonPayload);
 	}
 	catch(err)
 	{
 		document.getElementById("userName").innerHTML = err.message;
 	}
 	
-	// redo search but, now that the selected element is deleted
+	// redo search but, now that the selected element is edited
 	searchContacts();
 	
 	// go back to search contacts
 	goToSearchContacts();
+	
+	document.getElementById("userName").innerHTML = "Contact has been updated";
 }
 
 
@@ -558,7 +576,7 @@ function gotoDeleteContact(contact)
 function commitDeleteContact()
 {
 	// use idToDelete
-	var jsonPayload = '{"ID" : "' + idToDelete + '}';
+	var jsonPayload = '{"ID" : "' + idToDelete + '"}';
 
 
 
@@ -569,14 +587,7 @@ function commitDeleteContact()
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 	try
 	{
-		xhr.onreadystatechange = function()
-		{
-			if (this.readyState == 4 && this.status == 200)
-			{
-				document.getElementById("userName").innerHTML = "Contact has been deleted";
-			}
-		};
-		xhr.send(jsonPayload);
+	    xhr.send(jsonPayload);
 	}
 	catch(err)
 	{
@@ -592,6 +603,8 @@ function commitDeleteContact()
 	
 	// redo search but, now that the selected element is deleted
 	searchContacts();
+	
+	document.getElementById("userName").innerHTML = "Contact has been deleted";
 }
 
 // close popup without deleting
