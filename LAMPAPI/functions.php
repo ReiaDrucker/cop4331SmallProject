@@ -151,7 +151,7 @@
 			else
 			{
 			    $i = 0;
-			    $searchResults = "{";
+			    $searchResults = "";
 				while($row = $result->fetch_assoc())
 				{
 					if( $i > 0 )
@@ -159,26 +159,47 @@
 						$searchResults .= ",";
 					}
 				// 	$trow =json_encode($row);
-					$search = array(
-					    "ID" => $row["ID"],
-        				"firstName" => $row["FirstName"],
-        				"lastName" => $row["LastName"],
-        				"email" => $row["Email"],
-        				"phone" => $row["Phone"],
-        				"date created" => $row["Date_Created"],
-        				"address" => $row["Address"],
-        				"city" => $row["City"],
-        				"state" => $row["State"],
-        				"zip code" => $row["ZIP_Code"],
-        				"pronouns" => trow["Pronouns"],
-        				"userID" => $row["UserID"]
-					    );
-					$searchResults .= '"' . $i . '" : ' . json_encode($search);
+				// 	$search = array(
+				// 	    "ID" => $row["ID"],
+    //     				"firstName" => $row["FirstName"],
+    //     				"lastName" => $row["LastName"],
+    //     				"email" => $row["Email"],
+    //     				"phone" => $row["Phone"],
+    //     				"date created" => $row["Date_Created"],
+    //     				"address" => $row["Address"],
+    //     				"city" => $row["City"],
+    //     				"state" => $row["State"],
+    //     				"zip code" => $row["ZIP_Code"],
+    //     				"pronouns" => trow["Pronouns"],
+    //     				"userID" => $row["UserID"]
+				// 	    );
+				    $json = '{
+		        "ID":"' . $row["ID"] . '",
+		        "firstName":"' . $row["FirstName"] . '",
+		        "lastName":"' . $row["LastName"] . '",
+		        "email":"' . $row["Email"] . '",
+		        "phone":"' . $row["Phone"] . '",
+		        "date created":"' . $row["Date_Created"] . '",
+		        "address":"' . $row["Address"] . '",
+		        "city":"' . $row["City"] . '",
+		        "state":"' . $row["State"] . '",
+		        "zip code":"' . $row["ZIP_Code"] . '",
+		        "pronouns":"' . $row["Pronouns"] . '",
+		        "userID":"' . $row["UserID"] . '"
+	        }';
+                    
+                    $searchResults .= $json;
 					$i++;
 				// 	$this->sendResultInfoAsJson(json_encode($row));
 				}
-				$searchResults .= "}";
-				$retValue = '{"results":[' . $searchResults . '],"error":""}';
+				$searchResults .= "";
+            
+                $retValue = '{
+    "results":[' . $searchResults . '
+    ],
+    "error":""
+}';
+			    
 			    $this->sendResultInfoAsJson( $retValue );
 			}
 			

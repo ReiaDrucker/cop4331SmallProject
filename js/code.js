@@ -273,6 +273,7 @@ function doLogout()
 
 function addContacts()
 {
+    // Grab values from HTML
 	var newContactsFirstName = document.getElementById("ContactsFirstNameText").value;
 	var newContactsLastName = document.getElementById("ContactsLastNameText").value;
 	var newContactsEmail = document.getElementById("ContactsEmailText").value;
@@ -283,13 +284,9 @@ function addContacts()
 	var newContactsZIPCode = document.getElementById("ContactsZIPCodeText").value;
 	var newContactsPronouns = document.getElementById("ContactsPronounsText").value;
 
-
-
-
 	document.getElementById("ContactsAddResult").innerHTML = "";
-	
-	// Need UserID to be set here so that we don't send it as 0
 
+    // Create payload to send to server
 	var jsonPayload = '{"firstName" : "' + newContactsFirstName +
 						'", "lastName" : "' + newContactsLastName +
 						'", "email" : "' + newContactsEmail +
@@ -302,29 +299,22 @@ function addContacts()
 						'", "userID" : "' + userID +'"}';
 
 
-
+    // Where we are sending payload
 	var url = urlBase + '/AddContacts.' + extension;
 
+    // Create and send a XMLHttpRequest
 	var xhr = new XMLHttpRequest();
-	xhr.open("POST", url, true);
+	xhr.open("POST", url, false);
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	
 	try
 	{
-		xhr.onreadystatechange = function()
-		{
-			if (this.readyState == 4 && this.status == 200)
-			{
-				document.getElementById("userName").innerHTML = "Contact has been added";
-				
-						
-				// DEBUG
-				document.getElementById("userName").innerHTML = "first name added: " + newContactsFirstName + " last name added: " + newContactsLastName;
-				
-				// go back to search after successfully adding
-				goToSearchContacts();
-			}
-		};
 		xhr.send(jsonPayload);
+		
+		document.getElementById("userName").innerHTML = "Contact has been added";
+		
+		// go back to search after successfully adding
+		goToSearchContacts();
 	}
 	catch(err)
 	{
@@ -337,104 +327,116 @@ function searchContacts()
 	var srch = document.getElementById("searchText").value;
 	document.getElementById("ContactsSearchResult").innerHTML = "";
 	
-	// TODO - not 100% sure if this is necessary, I have it implemented to remove the old contact elements before the new ones are added
-	//while (document.getElementById("ContactsList").hasChildNodes()) 
-	//{
-    //	document.getElementById("ContactsList").removeChild(document.getElementById("ContactsList").lastChild);
-	//}
+	// Remove the old contact elements before the new ones are added
+	while (document.getElementById("ContactsList").hasChildNodes()) 
+	{
+    	document.getElementById("ContactsList").removeChild(document.getElementById("ContactsList").lastChild);
+	}
 	
-
-	var jsonPayload = '{"search" : "' + srch + '","userID" : ' + userID + '}';
+    // Create payload to send to server
+	var jsonPayload = '{"search" : "' + srch + '", "userID" : "' + userID + '"}';
+	
+	// Where we are sending payload
 	var url = urlBase + '/SearchContacts.' + extension;
 
+    // Create and send a XMLHttpRequest
 	var xhr = new XMLHttpRequest();
-	xhr.open("POST", url, true);
+	xhr.open("POST", url, false);
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	
+	// Attempt to send and process the response
 	try
 	{
-		xhr.onreadystatechange = function()
-		{
-			if (this.readyState == 4 && this.status == 200)
-			{
-				document.getElementById("userName").innerHTML = "Contact(s) has been retrieved";
-				var jsonObject = JSON.parse( xhr.responseText );
-
-				// DEBUG
-				document.getElementById("userName").innerHTML = "number of contacts found = " + jsonObject.results.length;
-				
-				
-				// go through array of contacts
-				for( var i=0; i<jsonObject.results.length; i++ )
-				{
-					// DEBUG
-					document.getElementById("userName").innerHTML = "Started loop: firstname = " + jsonObject.results[i].firstName;
-					
-					// make new button for the collapsable component, and give it an ID that corresponds to the ID # of the contact in the database ("#-coll")
-					var collButton = document.createElement("button");
-					collButton.className = "collapsible";
-					collButton.innerHTML = jsonObject.results[i].firstName + " " + jsonObject.results[i].lastName;
-					collButton.id = jsonObject.results[i].id + "-coll";
-					
-					// DEBUG
-					document.getElementById("userName").innerHTML = "firstname = " + jsonObject.results[i].firstName;
-					
-					// make new div for the content, and give it an ID the corresponds to the contact's ID in the database ("#")
-					var contentDiv = document.createElement("div");
-					contentDiv.className = "content";
-					contentDiv.id = "" + jsonObject.results[i].id;
-					
-					// create the <p> for the content div
-					var pronounP = document.createElement("p");
-					var emailPhoneP = document.createElement("p");
-					var addressP = document.createElement("p");
-					var cityStateZipP = document.createElement("p");
-					
-					// fill <p>s with content from json
-					pronounP.innerHTML = "Pronouns: " + jsonObject.results[i].pronouns;
-					emailPhoneP.innerHTML = "Email: " + jsonObject.results[i].email + "   Phone: " + jsonObject.results[i].phone;
-					addressP.innerHTML = "Address: " + jsonObject.results[i].address;
-					cityStateZipP.innerHTML = jsonObject.results[i].city + ", " + jsonObject.results[i].state + " " + jsonObject.results[i].ZIP;
-					
-					// add the <p>s to the content div
-					contentDiv.appendChild(pronounP);
-					contentDiv.appendChild(emailPhoneP);
-					contentDiv.appendChild(addressP);
-					contentDiv.appendChild(cityStateZipP);
-					
-					// create edit and delete buttons
-					var editButton = document.createElement("button");
-					editButton.type = "button";
-					editButton.class = "gotoEditButton";
-					editButton.onclick = "gotoEditContact(this);";
-					editButton.innerHTML = "Edit";
-					var deleteButton = document.createElement("button");
-					deleteButton.type = "button";
-					deleteButton.class = "gotoDeleteButton";
-					deleteButton.onclick = "gotoDeleteContact(this);";
-					deleteButton.innerHTML = "Delete";
-					
-					
-					// add buttons to the content div
-					contentDiv.appendChild(editButton);
-					contentDiv.appendChild(deleteButton);
-					
-					
-					// add collbutton and contentDiv to the contactsList
-					document.getElementById("ContactsList").appendChild(collButton);
-					document.getElementById("ContactsList").appendChild(contentDiv);
-				}
-			}
-		};
-		xhr.send(jsonPayload);
+        // Send the Payload
+        xhr.send(jsonPayload);
+    				
+    	var jsonObject = JSON.parse( xhr.responseText );
+    	
+    	// go through array of contacts
+    	for( var i=0; i<jsonObject.results.length; i++ )
+    	{
+    	    // contact vars
+    	    var ID = jsonObject.results[i].ID;
+			var firstName = jsonObject.results[i].firstName;
+			var lastName = jsonObject.results[i].lastName;
+			var pronouns = jsonObject.results[i].pronouns;
+			var email = jsonObject.results[i].email;
+			var phone = jsonObject.results[i].phone;
+			var address = jsonObject.results[i].address;
+			var city = jsonObject.results[i].city;
+			var state = jsonObject.results[i].state;
+			var zipCode = jsonObject.results[i]["zip code"];
+    		
+    		// make new button for the collapsable component, and give it an ID that corresponds to the ID # of the contact in the database ("#-coll")
+    		var collButton = document.createElement("button");
+    		collButton.innerHTML = firstName + " " + lastName;
+    		collButton.id = ID + "-coll";
+            collButton.className = "collapsible";
+    		
+    		// make new div for the content, and give it an ID the corresponds to the contact's ID in the database ("#")
+    		var contentDiv = document.createElement("div");
+    		contentDiv.id = "" + ID;
+    		contentDiv.className = "content";
+    		
+    		// create the <p> for the content div
+    		var pronounP = document.createElement("p");
+    		var emailPhoneP = document.createElement("p");
+    		var addressP = document.createElement("p");
+    		var cityStateZipP = document.createElement("p");
+    		
+    		// fill <p>s with content from json
+    		pronounP.innerHTML = "Pronouns: " + pronouns;
+    		emailPhoneP.innerHTML = "Email: " + email + "   Phone: " + phone;
+    		addressP.innerHTML = "Address: " + address;
+    		cityStateZipP.innerHTML = city + ", " + state + " " + zipCode;
+    		
+    		// add the <p>s to the content div
+    		contentDiv.appendChild(pronounP);
+    		contentDiv.appendChild(emailPhoneP);
+    		contentDiv.appendChild(addressP);
+    		contentDiv.appendChild(cityStateZipP);
+    		
+    		// create edit and delete buttons
+    		var editButton = document.createElement("button");
+    		editButton.type = "button";
+    		editButton.className = "gotoEditButton";
+    		editButton.addEventListener("click", function() { gotoEditContact(this); });   
+    		editButton.innerHTML = "Edit";
+    		var deleteButton = document.createElement("button");
+    		deleteButton.type = "button";
+    		deleteButton.className = "gotoDeleteButton";
+    		deleteButton.addEventListener("click", function() { gotoDeleteContact(this); });
+    		deleteButton.innerHTML = "Delete";
+    		
+    		// add buttons to the content div
+    		contentDiv.appendChild(editButton);
+    		contentDiv.appendChild(deleteButton);
+    		
+    		// add collbutton and contentDiv to the contactsList
+    		document.getElementById("ContactsList").appendChild(collButton);
+    		document.getElementById("ContactsList").appendChild(contentDiv);
+    		
+    		collButton.addEventListener("click", function() {
+    						this.classList.toggle("active");
+    						var content = this.nextElementSibling;
+    						if (content.style.maxHeight){
+      							content.style.maxHeight = null;
+    						} 
+							else {
+      							content.style.maxHeight = content.scrollHeight + "px";
+    						} 
+  						});
+    	}
+    	
+    	document.getElementById("userName").innerHTML = "Contact(s) has been retrieved";
 	}
 	catch(err)
 	{
 		document.getElementById("userName").innerHTML = err.message;
 	}
-
 }
 
-// will bring up the screen so that the contact can be edited, contact is a reference to the specific edit button that was clicked
+// Will bring up the screen so that the contact can be edited, contact is a reference to the specific edit button that was clicked
 function gotoEditContact(contact)
 {
 	// switch view
@@ -451,7 +453,7 @@ function gotoEditContact(contact)
 	var url = urlBase + '/SearchContacts.' + extension;
 
 	var xhr = new XMLHttpRequest();
-	xhr.open("POST", url, true);
+	xhr.open("POST", url, false);
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 	
 	try
@@ -515,7 +517,7 @@ function commitEditContact()
 	var url = urlBase + '/updateContact.' + extension;
 
 	var xhr = new XMLHttpRequest();
-	xhr.open("POST", url, true);
+	xhr.open("POST", url, false);
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 	try
 	{
@@ -563,7 +565,7 @@ function commitDeleteContact()
 	var url = urlBase + '/Delete.' + extension;
 
 	var xhr = new XMLHttpRequest();
-	xhr.open("POST", url, true);
+	xhr.open("POST", url, false);
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 	try
 	{

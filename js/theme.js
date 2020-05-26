@@ -2,7 +2,10 @@ var mode = false;
 
 function readStyle()
 {
+    console.log('past' + mode);
     mode = (getCookie("mode") == "true");
+    console.log('now' + mode);
+    console.log('Done');
 }
 
 function getCookie(cname)
