@@ -3,7 +3,7 @@
     <!-- Favicon -->
     <link rel="icon" href="./images/favicon.ico" type="image/x-icon">
     <!-- Fonts -->
-    <link id="mode" href="css/darkMode.css" rel="stylesheet">
+    <link id="mode" href="css/lightMode.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
 
     <!-- Navigation Bar -->
@@ -11,9 +11,9 @@
         <!-- <button type="button" id="styleButton" class="buttons" onclick="changeStyle();"> Light Mode </button> -->
         <a class="active" href="./index.html" id="home">Home</a>
         <a id="about" href="./html/about.html">About</a>
-        <a id="modeDisplay" onclick="changeStyle(0);">Light Mode</a>
+        <a id="modeDisplay" onclick="changeStyle(0);saveStyle()">Dark Mode</a>
 
-</div>
+    </div>
     <!-- End of Navigation Bar -->
 
     <title>Contact Manager</title>
@@ -22,17 +22,10 @@
     <script type="text/javascript" src="js/theme.js"></script>
     <script>
       readStyle();
-      console.log('ran');
-      if (mode)
-      {
-          changeStyle(0);
-      }
+      console.log('ran'); if (mode) { changeStyle(0);}
     </script>
     <script type="text/javascript">
-	document.addEventListener('DOMContentLoaded', function() 
-	{
-		readCookie();
-	}, false);
+	document.addEventListener('DOMContentLoaded', function() { readCookie(); }, false);
 	</script>
 
 </head>
@@ -40,33 +33,33 @@
 
 <h1 id="title">Contact Manager</h1>
 
-	
+
 <div id="wrapper">
-	
+
 	<!-- Message that is displayed at the top of the page -->
 	<div id="loggedInDiv" style="display:block">
 		<span id="userName"></span><br />
 	</div>
-	
+
 	<!-- Div used for browsing contacts -->
 	<div id="searchContactsDiv" style="display:block">
 		<br />
 			<div id="searchPanelDiv" style="display:block">
 				<input type="text" id="searchText" placeholder="Contacts To Search For"/>
-				<button type="button" id="searchContactsButton" class="buttons" onclick="searchContacts();"> Search Contacts </button>
+				<button type="button" id="searchContactsButton" class="buttons" onclick="searchContacts();"> Search </button>
 			</div>
-		
+
 			<div id="contactsListDiv">
 				<span id="ContactsSearchResult"></span>
 				<div id="ContactsList">
-					
+
 				</div>
-				
+
 			</div>
-		
+
 		<br /><br />
 	</div>
-	
+
 	<!-- Div used to add /edit contacts, starts hidden -->
 	<div id="addContactsDiv" style="display:none">
 		<br />
@@ -79,38 +72,35 @@
 		<input type="text" id="ContactsStateText" placeholder="Contact's State">
 		<input type="text" id="ContactsZIPCodeText" placeholder="Contact's ZIP Code">
 		<input type="text" id="ContactsPronounsText" placeholder="Contact's Pronouns">
-	
+
 		<span id="ContactsAddResult"></span>
 	</div>
-	
+
 	<!-- Contains Buttons on bottom of the screen, they swap depending on if you're adding a contact or browsing contacts -->
 	<div id="footerDiv" style="display:block">
 		<!--- Buttons that are visible on Search Contacts screen -->
 		<button type="button" id="logoutButton" class="buttons" style="display:block" onclick="doLogout();"> Log Out </button>
-		<button type="button" id="goToAddContactsButton" class="buttons" style="display:block" onclick="goToAddContacts();"> Add Contact </button><br />
-	
+		<button type="button" id="goToAddContactsButton" class="buttons" style="display:block" onclick="goToAddContacts();"> Add </button><br />
+
 		<!--- Buttons that are visible on Add Contacts screen, they start hidden -->
 		<button type="button" id="cancelAddContactButton" class="buttons" style="display:none" onclick="goToSearchContacts();"> Cancel </button><br />
 		<button type="button" id="addContactsButton" class="buttons" style="display:none" onclick="addContacts();"> Add </button><br />
-		
+
 		<!--- Button that is visible while editing contacts, it starts hidden -->
 		<button type="button" id="confirmEditButton" class="buttons" style="display:none" onclick="commitEditContact();"> Update </button>
 	</div>
-		
+
 	<!-- Contains the components of the popup window that asks you to confirm deletion of a contact -->
 	<div id="popupConfirmDeleteDiv" class="popup">
 			<!-- Content of popup -->
 			<div id="popupContent">
 				<p>Are you sure you want to delete this contact?</p>
-				
+
 				<button type="button" id="confirmDeleteButton" class="buttons" onclick="commitDeleteContact();"> Delete </button>
 				<button type="button" id="cancelDeleteButton" class="buttons" onclick="cancelDeleteContact();"> Cancel </button>
-				
-			</div>
-	</div>	
-	
-</div>
 
+			</div>
+	</div>
+    </div>
 </body>
 </html>
-
