@@ -7,7 +7,7 @@ var lastName = "";
 var error = "";
 
 // Mode variables
-var darkModeToggle = true;
+var darkModeToggle = false;
 var darkMode = '/css/darkMode.css';
 var lightMode = '/css/lightMode.css';
 
@@ -63,13 +63,13 @@ function doLogin()
 		saveCookie();
 
         window.location.href = "contacts.html";
-		
+
 	}
 	catch(err)
 	{
 		document.getElementById("loginResult").innerHTML = err.message;
 	}
-	
+
 	document.getElementById('userName').innerHTML = "Welcome, " + firstName + " " + lastName + "!";
 }
 
@@ -97,21 +97,21 @@ function doSignup()
 			document.getElementById("signupResult").innerHTML = "Passwords do not match";
 			return;
 		}
-	
+
 	// check for invalid password
 	if (password === "" || password === null)
 		{
 			document.getElementById("signupResult").innerHTML = "Invalid password";
 			return;
 		}
-	
+
 	// check for invalid username
 	if (login === "" || login === null)
 		{
 			document.getElementById("signupResult").innerHTML = "Invalid username";
 			return;
 		}
-	
+
 	var jsonPayload = '{ "firstName" : "' + firstName
 					+ '", "lastName" : "' + lastName
 					+ '", "login" : "'    + login
@@ -149,7 +149,7 @@ function doSignup()
 	{
 		document.getElementById("signupResult").innerHTML = err.message;
 	}
-	
+
 	document.getElementById('userName').innerHTML = "Welcome, " + firstName + " " + lastName + "!";
 }
 
@@ -195,9 +195,9 @@ function goToAddContacts()
 	replace('logoutButton', 'cancelAddContactButton');
 	replace('goToAddContactsButton', 'addContactsButton');
 	replace('searchContactsDiv', 'addContactsDiv');
-	
+
 	document.getElementById('userName').innerHTML = "Please add your contact's information below";
-	
+
 	// clear out form
 	document.getElementById("ContactsFirstNameText").value = "";
 	document.getElementById("ContactsLastNameText").value = "";
@@ -216,10 +216,10 @@ function goToSearchContacts()
 	replace('addContactsButton', 'goToAddContactsButton');
 	replace('confirmEditButton', 'goToAddContactsButton');
 	replace('addContactsDiv', 'searchContactsDiv');
-	
+
 	// if edit was cancelled
 	idToEdit = "";
-	
+
 	// TODO - might add back in later
 	//document.getElementById('userName').innerHTML = "Welcome, " + firstName + " " + lastName + "!";
 }
@@ -317,13 +317,13 @@ function addContacts()
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, false);
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-	
+
 	try
 	{
 		xhr.send(jsonPayload);
-		
+
 		document.getElementById("userName").innerHTML = "Contact has been added";
-		
+
 		// go back to search after successfully adding
 		goToSearchContacts();
 	}
@@ -331,7 +331,7 @@ function addContacts()
 	{
 		document.getElementById("userName").innerHTML = err.message;
 	}
-	
+
 	// do search contacts again so that the new contact appears if it should be in the search
 	searchContacts();
 }
@@ -340,16 +340,16 @@ function searchContacts()
 {
 	var srch = document.getElementById("searchText").value;
 	document.getElementById("ContactsSearchResult").innerHTML = "";
-	
+
 	// Remove the old contact elements before the new ones are added
-	while (document.getElementById("ContactsList").hasChildNodes()) 
+	while (document.getElementById("ContactsList").hasChildNodes())
 	{
     	document.getElementById("ContactsList").removeChild(document.getElementById("ContactsList").lastChild);
 	}
-	
+
     // Create payload to send to server
 	var jsonPayload = '{"search" : "' + srch + '", "userID" : "' + userID + '"}';
-	
+
 	// Where we are sending payload
 	var url = urlBase + '/SearchContacts.' + extension;
 
@@ -357,15 +357,15 @@ function searchContacts()
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, false);
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-	
+
 	// Attempt to send and process the response
 	try
 	{
         // Send the Payload
         xhr.send(jsonPayload);
-    				
+
     	var jsonObject = JSON.parse( xhr.responseText );
-    	
+
     	// go through array of contacts
     	for( var i=0; i<jsonObject.results.length; i++ )
     	{
@@ -380,68 +380,68 @@ function searchContacts()
 			var city = jsonObject.results[i].city;
 			var state = jsonObject.results[i].state;
 			var zipCode = jsonObject.results[i]["zip code"];
-    		
+
     		// make new button for the collapsable component, and give it an ID that corresponds to the ID # of the contact in the database ("#-coll")
     		var collButton = document.createElement("button");
     		collButton.innerHTML = firstName + " " + lastName;
     		collButton.id = ID + "-coll";
             collButton.className = "collapsible";
-    		
+
     		// make new div for the content, and give it an ID the corresponds to the contact's ID in the database ("#")
     		var contentDiv = document.createElement("div");
     		contentDiv.id = "" + ID;
     		contentDiv.className = "content";
-    		
+
     		// create the <p> for the content div
     		var pronounP = document.createElement("p");
     		var emailPhoneP = document.createElement("p");
     		var addressP = document.createElement("p");
     		var cityStateZipP = document.createElement("p");
-    		
+
     		// fill <p>s with content from json
     		pronounP.innerHTML = "Pronouns: " + pronouns;
     		emailPhoneP.innerHTML = "Email: " + email + "   Phone: " + phone;
     		addressP.innerHTML = "Address: " + address;
     		cityStateZipP.innerHTML = city + ", " + state + " " + zipCode;
-    		
+
     		// add the <p>s to the content div
     		contentDiv.appendChild(pronounP);
     		contentDiv.appendChild(emailPhoneP);
     		contentDiv.appendChild(addressP);
     		contentDiv.appendChild(cityStateZipP);
-    		
+
     		// create edit and delete buttons
     		var editButton = document.createElement("button");
     		editButton.type = "button";
     		editButton.className = "gotoEditButton";
-    		editButton.addEventListener("click", function() { gotoEditContact(this); });   
+    		editButton.addEventListener("click", function() { gotoEditContact(this); });
     		editButton.innerHTML = "Edit";
     		var deleteButton = document.createElement("button");
     		deleteButton.type = "button";
     		deleteButton.className = "gotoDeleteButton";
     		deleteButton.addEventListener("click", function() { gotoDeleteContact(this); });
     		deleteButton.innerHTML = "Delete";
-    		
+
     		// add buttons to the content div
     		contentDiv.appendChild(editButton);
     		contentDiv.appendChild(deleteButton);
-    		
+
     		// add collbutton and contentDiv to the contactsList
     		document.getElementById("ContactsList").appendChild(collButton);
     		document.getElementById("ContactsList").appendChild(contentDiv);
-    		
+
     		collButton.addEventListener("click", function() {
     						this.classList.toggle("active");
     						var content = this.nextElementSibling;
     						if (content.style.maxHeight){
       							content.style.maxHeight = null;
-    						} 
+    						}
 							else {
       							content.style.maxHeight = content.scrollHeight + "px";
-    						} 
+    						}
   						});
     	}
-    	
+
     	document.getElementById("userName").innerHTML = "Contact(s) has been retrieved";
 	}
 	catch(err)
@@ -458,10 +458,10 @@ function gotoEditContact(contact)
 	replace('goToAddContactsButton', 'confirmEditButton');
 	replace('searchContactsDiv', 'addContactsDiv');
 	document.getElementById('userName').innerHTML = "Please edit your contact's information below";
-	
+
 	// get id so that this specific contact can be accessed later
 	idToEdit = contact.parentNode.id;
-	
+
 	// search by id
 	var jsonPayload = '{"ID" : "' + idToEdit + '"}';
 	var url = urlBase + '/SearchContacts.' + extension;
@@ -469,16 +469,16 @@ function gotoEditContact(contact)
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, false);
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-	
+
 	try
 	{
 	    // Send the Payload
         xhr.send(jsonPayload);
-    				
+
     	var jsonObject = JSON.parse( xhr.responseText );
-	    
+
 		var jsonObject = JSON.parse( xhr.responseText );
-					
+
 		// contact vars
 		var firstName = jsonObject.results[0].firstName;
 		var lastName = jsonObject.results[0].lastName;
@@ -489,8 +489,8 @@ function gotoEditContact(contact)
 		var city = jsonObject.results[0].city;
 		var state = jsonObject.results[0].state;
 		var zipCode = jsonObject.results[0]["zip code"];
-					
-					
+
+
 	    // put current contact info into the form for ease of access
 		document.getElementById("ContactsFirstNameText").value = firstName;
 		document.getElementById("ContactsLastNameText").value = lastName;
@@ -550,13 +550,13 @@ function commitEditContact()
 	{
 		document.getElementById("userName").innerHTML = err.message;
 	}
-	
+
 	// redo search but, now that the selected element is edited
 	searchContacts();
-	
+
 	// go back to search contacts
 	goToSearchContacts();
-	
+
 	document.getElementById("userName").innerHTML = "Contact has been updated";
 }
 
@@ -566,7 +566,7 @@ function gotoDeleteContact(contact)
 {
 	// get id of object to potentially delete
 	idToDelete = contact.parentNode.id;
-	
+
 	// get popup div and enable it
 	var popup = document.getElementById("popupConfirmDeleteDiv");
 	popup.style.display = "block";
@@ -593,17 +593,17 @@ function commitDeleteContact()
 	{
 		document.getElementById("userName").innerHTML = err.message;
 	}
-	
+
 	// close popup
 	var popup = document.getElementById("popupConfirmDeleteDiv");
 	popup.style.display = "none";
-	
+
 	// get rid of idToDelete
 	idToDelete = "";
-	
+
 	// redo search but, now that the selected element is deleted
 	searchContacts();
-	
+
 	document.getElementById("userName").innerHTML = "Contact has been deleted";
 }
 
@@ -613,7 +613,7 @@ function cancelDeleteContact()
 	// close popup on click of cancel button
 	var popup = document.getElementById("popupConfirmDeleteDiv");
   	popup.style.display = "none";
-	
+
 	// get rid of idToDelete
 	idToDelete = "";
 }
