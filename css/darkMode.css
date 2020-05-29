@@ -2,9 +2,10 @@ html
 {
 	height: 100%;
 	background-image: url("https://images.wallpapersden.com/image/download/abstract-neon-silk_64848_2560x1440.jpg");
-	background-position: center;
+	background-position: center top;
 	background-repeat: no-repeat;
-	background-size: auto;
+	background-size: cover;
+	background-attachment: scroll;
 }
 
 
@@ -87,6 +88,19 @@ img
 	align-items: center;
 }
 
+#footerDiv
+{
+    position: fixed;
+    bottom: 5%;
+    /*margin-bottom: 2%;*/
+    width: 100%;
+}
+
+#searchContactsDiv
+{
+    height: 90%;
+}
+
 #loginDiv
 {
 	background: Transparent;
@@ -131,6 +145,12 @@ img
     margin-left: 15%;
     padding: 25px;
     background: transparent;
+
+    margin-bottom: 0;
+    padding-bottom: 0;
+    max-height: 60%;
+
+    overflow: auto;
 }
 
 /* Trying to use navigation bar instead */
@@ -150,6 +170,17 @@ img
 	border-width: 5%
 } */
 
+body
+{
+    border: 0;
+    margin: 0;
+}
+
+#wrapper
+{
+    height: 70%;
+}
+
 .buttons
 {
 	background-color: white;
@@ -164,7 +195,7 @@ img
 {
     background-color: #00aaaa;
     color: #FFFFFF;
-3opacity: 50%;
+    min-width: 100px;
 }
 
 #switchToSignup
@@ -221,8 +252,9 @@ img
 #searchText
 {
 	float: left;
-	width: 67%;
+	width: 60%;
 	margin-left: 10%;
+	height: 50px;
 	font-size: 30px;
 }
 #colorText
@@ -363,9 +395,12 @@ select{
 
 #searchContactsButton{
 	float: right;
-	width: 12%;
-	margin-left: 0%;
+	min-width: 20px;
+	width: 17%;
+	height: 50px;
+	margin-left: 3%;
 	margin-right: 10%;
+	text-align: center;
 }
 
 #colorAddResult{
@@ -425,9 +460,10 @@ select{
 	background-color: white;
     font-size: 24px;
     border-radius: 25px;
-    width: 10%;
+    min-width: 40px;
+    width: 15%;
 	float: left;
-	margin-left: 70%;
+	margin-left: 5%;
 	margin-bottom: 1%;
     font-family: 'Ubuntu', sans-serif;
 }
@@ -441,7 +477,8 @@ select{
 	color: #FFFFFF;
     font-size: 24px;
     border-radius: 25px;
-    width: 10%;
+    min-width: 40px;
+    width: 15%;
     float: right;
 	margin-right: 5%;
 	margin-bottom: 1%;
@@ -470,9 +507,10 @@ select{
   padding: 20px;
   border: 1px solid #888;
   width: 50%;
-  height: 10%;
+  height: 13%;
   font-family: 'Ubuntu', sans-serif;
   font-size: 24px;
+  align-items:center;
 }
 
 #confirmDeleteButton {
@@ -480,7 +518,7 @@ select{
 	color: #FFFFFF;
     font-size: 24px;
     border-radius: 25px;
-    width: 10%;
+    width: 15%;
     float: right;
 	margin-right: 10%;
 	margin-bottom: 1%;
@@ -490,14 +528,13 @@ select{
     background-color: #C30505;
     color: #FFFFFF;
 }
-
 #cancelDeleteButton {
 	background-color: white;
     font-size: 24px;
     border-radius: 25px;
-    width: 10%;
+    width: 15%;
 	float: left;
-	margin-left: 40%;
+	margin-left: 30%;
 	margin-bottom: 1%;
     font-family: 'Ubuntu', sans-serif;
 }
