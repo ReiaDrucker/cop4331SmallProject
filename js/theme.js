@@ -1,3 +1,8 @@
+// Jaime Bohorquez
+// Programmed using Atom + iTerm2 on Mac OS
+
+// Manages cookie read and write for mode toggle.
+
 var mode = false;
 
 function readStyle()
@@ -8,9 +13,9 @@ function readStyle()
     console.log('Done');
 }
 
-function getCookie(cname)
+function getCookie(cookiename)
 {
-  var name = cname + "=";
+  var name = cookiename + "=";
   var decode = decodeURIComponent(document.cookie);
   var token = decode.split(';');
   for(var i = 0; i <token.length; i++)
@@ -33,5 +38,5 @@ function saveStyle()
     var minutes = 60;
 	var date = new Date();
 	date.setTime(date.getTime()+(minutes*60*1000));
-    document.cookie = "mode=" + (mode == false) + ";expires=" + date.toGMTString();
+    document.cookie = "mode=" + (mode == false) + ";path=/" + ";expires=" + date.toGMTString();
 }
