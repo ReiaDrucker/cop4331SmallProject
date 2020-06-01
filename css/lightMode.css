@@ -519,9 +519,9 @@ select{
 	color: #FFFFFF;
     font-size: 24px;
     border-radius: 25px;
-    width: 15%;
+    width: 20%;
     float: right;
-	margin-right: 10%;
+	margin-right: 5%;
 	margin-bottom: 1%;
     font-family: 'Ubuntu', sans-serif;
 }
@@ -534,7 +534,7 @@ select{
 	background-color: white;
     font-size: 24px;
     border-radius: 25px;
-    width: 15%;
+    width: 20%;
 	float: left;
 	margin-left: 30%;
 	margin-bottom: 1%;
