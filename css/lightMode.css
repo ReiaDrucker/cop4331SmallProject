@@ -149,9 +149,9 @@ img
     margin-bottom: 0;
     padding-bottom: 0;
     max-height: 60%;
-
+    
     overflow: auto;
-
+    
 }
 
 /* Trying to use navigation bar instead */
@@ -371,13 +371,13 @@ span.inner-title{
 #cancelAddContactButton{
     width: 20%;
     margin-left: 10%;
-	margin-top: 1%;
+	margin-top: 12%;
 	float: left;
 }
 #addContactsButton{
 	width: 20%;
     margin-right: 10%;
-	margin-top: 1%;
+	margin-top: 10%;
 	float: right;
 }
 
@@ -444,7 +444,7 @@ select{
 	font-size: 25px;
 	color: #000000;
 	border-radius: 25px;
-}
+} 
 
 #ContactsList {
 	height: 50%;
@@ -454,7 +454,7 @@ select{
 	background: transparent;
 	padding: 5px;
 }
-
+ 
 
 
 .gotoEditButton {
@@ -536,7 +536,7 @@ select{
     border-radius: 25px;
     width: 20%;
 	float: left;
-	margin-left: 30%;
+	margin-left: 5%;
 	margin-bottom: 1%;
     font-family: 'Ubuntu', sans-serif;
 }
@@ -548,6 +548,6 @@ select{
 #confirmEditButton {
 	width: 20%;
     margin-right: 10%;
-	margin-top: 1%;
+	margin-top: 9%;
 	float: right;
 }
