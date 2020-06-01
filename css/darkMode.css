@@ -370,13 +370,13 @@ span.inner-title{
 #cancelAddContactButton{
     width: 20%;
     margin-left: 10%;
-	margin-top: 1%;
+	margin-top: 12%;
 	float: left;
 }
 #addContactsButton{
 	width: 20%;
     margin-right: 10%;
-	margin-top: 1%;
+	margin-top: 10%;
 	float: right;
 }
 
@@ -528,14 +528,15 @@ select{
     background-color: #C30505;
     color: #FFFFFF;
 }
+
 #cancelDeleteButton {
 	background-color: white;
     font-size: 24px;
     border-radius: 25px;
     width: 20%;
 	float: left;
-	margin-left: 30%;
-	margin-bottom: 1%;
+    margin-left: 5%;
+    margin-bottom: 1%;
     font-family: 'Ubuntu', sans-serif;
 }
 #cancelDeleteButton:hover {
@@ -546,6 +547,6 @@ select{
 #confirmEditButton {
 	width: 20%;
     margin-right: 10%;
-	margin-top: 1%;
+	margin-top: 9%;
 	float: right;
 }
